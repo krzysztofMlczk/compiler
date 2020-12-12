@@ -24,15 +24,15 @@ OTHER [^\,\(\)\:\;\+\-\*\/\%\=\<\>]
 
 {COMMENT_START} { BEGIN(COMMENT); }
 <COMMENT>{
-    [^\]]   ; /* ignore every character except escaped "]" */
+    [^\]]           ; /* ignore every character except escaped "]" */
     {COMMENT_END}   BEGIN(INITIAL);
 }
 
 \n              ;
 \r              ;
 [ \t]           ;
-{PIDENTIFIER}   { yylval.stringVal = new std::string(yytext, yyleng); return PIDENTIFIER; }
-{NUMBER}        { yylval.numberVal = atoll(yytext); return NUMBER; }
+{PIDENTIFIER}   { yylval.stringVal = new std::string(yytext, yyleng); return PIDENTIFIER;   }
+{NUMBER}        { yylval.numberVal = atoll(yytext); return NUMBER;                          }
 DECLARE         { return TOKEN(DECLARE);    }
 BEGIN           { return TOKEN(BEGIN);      }
 END             { return TOKEN(END);        }
@@ -56,5 +56,5 @@ WRITE           { return TOKEN(WRITE);      }
 {LEQ}           { return TOKEN(LEQ);        }
 {GEQ}           { return TOKEN(GEQ);        }
 {ASSIGN}        { return TOKEN(ASSIGN);     }
-{OTHER}         { return TOKEN(ERROR);  }/* Any other besides: , | ( | ) | : | ; | + | - | * | / | % | = | < | > indicates an error*/
+{OTHER}         { return TOKEN(ERROR);      } /* Any other indicates an Error */
 %%

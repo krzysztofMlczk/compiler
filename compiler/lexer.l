@@ -2,9 +2,9 @@
 %option yylineno
 
 %{
-    #include <string>
+    #include "parser.tab.h" /* import tokens from bison file */
+    #include <cstring>
 
-    #define TOKEN(token) (yylval.token = token)
 %}
 
 PIDENTIFIER [_a-z]+
@@ -15,8 +15,6 @@ GEQ >=
 ASSIGN :=
 COMMENT_START \[
 COMMENT_END \]
-OTHER [^\,\(\)\:\;\+\-\*\/\%\=\<\>]
-/* , | ( | ) | : | ; | + | - | * | / | % | = | < | > those will be passed to the parser by default rule */
 
 %x COMMENT
 
@@ -31,30 +29,30 @@ OTHER [^\,\(\)\:\;\+\-\*\/\%\=\<\>]
 \n              ;
 \r              ;
 [ \t]           ;
-{PIDENTIFIER}   { yylval.stringVal = new std::string(yytext, yyleng); return PIDENTIFIER;   }
-{NUMBER}        { yylval.numberVal = atoll(yytext); return NUMBER;                          }
-DECLARE         { return TOKEN(DECLARE);    }
-BEGIN           { return TOKEN(BEGIN);      }
-END             { return TOKEN(END);        }
-IF              { return TOKEN(IF);         }
-THEN            { return TOKEN(THEN);       }
-ELSE            { return TOKEN(ELSE);       }
-ENDIF           { return TOKEN(ENDIF);      }
-WHILE           { return TOKEN(WHILE);      }
-DO              { return TOKEN(DO);         }
-ENDWHILE        { return TOKEN(ENDWHILE);   }
-REPEAT          { return TOKEN(REPEAT);     }
-UNTIL           { return TOKEN(UNTIL);      }
-FOR             { return TOKEN(FOR);        }
-FROM            { return TOKEN(FROM);       }
-TO              { return TOKEN(TO);         }
-ENDFOR          { return TOKEN(ENDFOR);     }
-DOWNTO          { return TOKEN(DOWNTO);     }
-READ            { return TOKEN(READ);       }
-WRITE           { return TOKEN(WRITE);      }
-{NEQ}           { return TOKEN(NEQ);        }
-{LEQ}           { return TOKEN(LEQ);        }
-{GEQ}           { return TOKEN(GEQ);        }
-{ASSIGN}        { return TOKEN(ASSIGN);     }
-{OTHER}         { return TOKEN(ERROR);      } /* Any other indicates an Error */
+{PIDENTIFIER}   { yylval.stringVal = strdup(yytext); return PIDENTIFIER;    }
+{NUMBER}        { yylval.numberVal = atoll(yytext); return NUMBER;          }
+DECLARE         { return DECLARE;   }
+BEGIN           { return BEGIN_T;   }
+END             { return END;       }
+IF              { return IF;        }
+THEN            { return THEN;      }
+ELSE            { return ELSE;      }
+ENDIF           { return ENDIF;     }
+WHILE           { return WHILE;     }
+DO              { return DO;        }
+ENDWHILE        { return ENDWHILE;  }
+REPEAT          { return REPEAT;    }
+UNTIL           { return UNTIL;     }
+FOR             { return FOR;       }
+FROM            { return FROM;      }
+TO              { return TO;        }
+ENDFOR          { return ENDFOR;    }
+DOWNTO          { return DOWNTO;    }
+READ            { return READ;      }
+WRITE           { return WRITE;     }
+{NEQ}           { return NEQ;       }
+{LEQ}           { return LEQ;       }
+{GEQ}           { return GEQ;       }
+{ASSIGN}        { return ASSIGN;    }
+.               { return yytext[0]; } /* Any other indicates an Error */
 %%

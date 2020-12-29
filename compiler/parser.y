@@ -18,10 +18,20 @@
 %union {
   unsigned long long numberVal;
   const char* stringVal;
+  Value* val;
+  Condition* cond;
+  Expression* exp;
+  Command* com;
 }
 
 %type<numberVal> NUMBER
 %type<stringVal> PIDENTIFIER
+
+%type<val> identifier
+%type<val> value
+%type<cond> condition
+%type<exp> expression
+%type<com> command
 
 /* TOKENS */
 %token DECLARE
@@ -85,31 +95,31 @@ command:
 
 expression:
   value
-| value '+' value
-| value '-' value
-| value '*' value
-| value '/' value
-| value '%' value
+| value '+' value                   { $$ = new ExpAdd($1, $3);    }
+| value '-' value                   { $$ = new ExpSub($1, $3);    }     
+| value '*' value                   { $$ = new ExpMult($1, $3);   }
+| value '/' value                   { $$ = new ExpDiv($1, $3);    }
+| value '%' value                   { $$ = new ExpMod($1, $3);    }
 ;
 
 condition:
-  value '=' value
-| value NEQ value
-| value '<' value
-| value '>' value
-| value LEQ value
-| value GEQ value
+  value '=' value                   { $$ = new CondEq($1, $3);    }
+| value NEQ value                   { $$ = new CondNeq($1, $3);   }
+| value '<' value                   { $$ = new CondLt($1, $3);    }
+| value '>' value                   { $$ = new CondGt($1, $3);    }
+| value LEQ value                   { $$ = new CondLeq($1, $3);   }
+| value GEQ value                   { $$ = new CondGeq($1, $3);   }
 ;
 
-value:
-  NUMBER
-| identifier
+value:                
+  NUMBER                            { $$ = new Constant($1);  }
+| identifier                        { $$ = $1;                }
 ;
 
 identifier:
-  PIDENTIFIER
-| PIDENTIFIER '(' PIDENTIFIER ')'
-| PIDENTIFIER '(' NUMBER ')'
+  PIDENTIFIER                       { $$ = new Variable(std::string($1));                   }
+| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new Variable(std::string($1), std::string($3));  }
+| PIDENTIFIER '(' NUMBER ')'        { $$ = new Variable(std::string($1), $3);               }
 ;
 
 %%

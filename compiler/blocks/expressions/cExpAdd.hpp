@@ -9,7 +9,7 @@
 class ExpAdd: public Expression {
     public:
         ExpAdd(Value* v1, Value* v2);
-        string getCode();
+        virtual string getCode();
     protected:
     private:
 };

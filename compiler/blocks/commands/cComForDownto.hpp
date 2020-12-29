@@ -8,7 +8,7 @@
 */
 class ComForDownto: public Command {
     public:
-        string getCode();
+        virtual string getCode();
 };
 
 #endif

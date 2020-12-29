@@ -8,7 +8,7 @@
 */
 class ComIf: public Command {
     public:
-        string getCode();
+        virtual string getCode();
 };
 
 #endif

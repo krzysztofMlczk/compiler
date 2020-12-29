@@ -9,7 +9,7 @@
 class ExpMult: public Expression {
     public:
         ExpMult(Value* v1, Value* v2);
-        string getCode();
+        virtual string getCode();
     protected:
     private:
 };

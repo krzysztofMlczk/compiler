@@ -9,7 +9,7 @@
 class CondGt: public Condition {
     public:
         CondGt(Value* v1, Value* v2);
-        string getCode();
+        virtual string getCode();
     protected:
     private:
 };

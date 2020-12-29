@@ -14,6 +14,6 @@ Variable::Variable(string pid, ull index) {
     this->index = index;
 }
 
-std::string Variable::getCode() {
+string Variable::getCode() {
     return "";
 }

@@ -21,7 +21,7 @@ class Variable: public Value {
         // Array cell Constructor (refered to by index)
         Variable(string pid, ull index);
 
-        string getCode();
+        virtual string getCode();
     protected:
     private:
 };

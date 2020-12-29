@@ -2,18 +2,19 @@
   #include <iostream>
   #include <string>
 
-  // #include "Paraphraser.h"
-
   extern int yylex();
   extern int yylineno;
   extern FILE* yyin;
-
-  // Paraphraser paraphraser;
 
   void yyerror (const char *str);
 
   using namespace std;
 %}
+
+%code requires {
+  #include <vector>
+  #include "blocks_fwd.hpp"
+}
 
 %union {
   unsigned long long numberVal;
@@ -94,7 +95,7 @@ command:
 ;
 
 expression:
-  value
+  value                             { $$ = new ExpAsVal($1);      }
 | value '+' value                   { $$ = new ExpAdd($1, $3);    }
 | value '-' value                   { $$ = new ExpSub($1, $3);    }     
 | value '*' value                   { $$ = new ExpMult($1, $3);   }
@@ -112,8 +113,8 @@ condition:
 ;
 
 value:                
-  NUMBER                            { $$ = new Constant($1);  }
-| identifier                        { $$ = $1;                }
+  NUMBER                            { $$ = new Constant($1);      }
+| identifier                        { $$ = $1;                    }
 ;
 
 identifier:

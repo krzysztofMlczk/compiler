@@ -9,7 +9,7 @@
 class ExpAsVal: public Expression {
     public:
         ExpAsVal(Value* v1);
-        string getCode();
+        virtual string getCode();
     protected:
     private:
 };

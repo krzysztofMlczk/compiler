@@ -12,7 +12,7 @@ class Constant: public Value {
         ull value;
         Constant(ull num);
 
-        std::string getCode();
+        virtual string getCode();
     protected:
     private:
 

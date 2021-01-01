@@ -13,8 +13,6 @@ class Constant: public Value {
         Constant(ull num);
 
         virtual string getCode();
-    protected:
-    private:
 
 };
 

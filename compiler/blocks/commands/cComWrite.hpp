@@ -8,6 +8,8 @@
 */
 class ComWrite: public Command {
     public:
+        Value* value;
+        ComWrite(Value* val);
         virtual string getCode();
 };
 

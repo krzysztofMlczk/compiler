@@ -1,6 +1,7 @@
 #ifndef ICOMMAND_HPP
 #define ICOMMAND_HPP
 #include "iCodeBlock.hpp"
+#include "iValue.hpp"
 
 /*
 *   Command INTERFACE

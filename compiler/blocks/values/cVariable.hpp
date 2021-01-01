@@ -22,8 +22,6 @@ class Variable: public Value {
         Variable(string pid, ull index);
 
         virtual string getCode();
-    protected:
-    private:
 };
 
 #endif

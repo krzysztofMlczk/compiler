@@ -8,6 +8,8 @@
 */
 class ComRead: public Command {
     public:
+        Value* ident;
+        ComRead(Value* id);
         virtual string getCode();
 };
 

@@ -1,6 +1,7 @@
 %{
   #include <iostream>
   #include <string>
+  #include <vector>
 
   extern int yylex();
   extern int yylineno;
@@ -22,7 +23,8 @@
   Value* val;
   Condition* cond;
   Expression* exp;
-  Command* com;
+  Command* cmd;
+  vector<Command*> cmds;
 }
 
 %type<numberVal> NUMBER
@@ -32,7 +34,8 @@
 %type<val> value
 %type<cond> condition
 %type<exp> expression
-%type<com> command
+%type<cmd> command
+%type<cmds> commands
 
 /* TOKENS */
 %token DECLARE
@@ -78,20 +81,24 @@ declarations:
 ;
 
 commands:
-  commands command
-| command
+  commands command                                            { $$ = $1.push_back($2);              }
+| command                                                     { 
+                                                                vector<Command*> v;
+                                                                v.push_back($1);
+                                                                $$ = v;
+                                                              }
 ;
 
 command:
-  identifier ASSIGN expression ';'
-| IF condition THEN commands ELSE commands ENDIF
-| IF condition THEN commands ENDIF
-| WHILE condition DO commands ENDWHILE
-| REPEAT commands UNTIL condition ';'
-| FOR PIDENTIFIER FROM value TO value DO commands ENDFOR
-| FOR PIDENTIFIER FROM value DOWNTO value DO commands ENDFOR
-| READ identifier ';'
-| WRITE value ';'
+  identifier ASSIGN expression ';'                            { $$ = new ComAssign($1, $3);         }
+| IF condition THEN commands ELSE commands ENDIF              { $$ = new ComIfElse($2, $4, $6);     }
+| IF condition THEN commands ENDIF                            { $$ = new ComIf($2, $4);             }
+| WHILE condition DO commands ENDWHILE                        { $$ = new ComWhile($2, $4);          }
+| REPEAT commands UNTIL condition ';'                         { $$ = new ComRepeat($2, $4);         }
+| FOR PIDENTIFIER FROM value TO value DO commands ENDFOR      { $$ = new ComFor($4, $6, $8);        }
+| FOR PIDENTIFIER FROM value DOWNTO value DO commands ENDFOR  { $$ = new ComForDownto($4, $6, $8);  }
+| READ identifier ';'                                         { $$ = new ComRead($2);               }
+| WRITE value ';'                                             { $$ = new ComWrite($2);              }
 ;
 
 expression:

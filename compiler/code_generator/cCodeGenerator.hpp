@@ -11,11 +11,11 @@ typedef unsigned long long ull;
 */
 class CodeGenerator {
     public:
-    SymbolTable symbolTable;
-    ull mem_offset; // keeps track of where new declarations should be placed
-    CodeGenerator();
-    void addSymbol(const char* pid, ull num1, ull num2);
-    void addSymbol(const char* pid);
+        SymbolTable symbolTable;
+        ull mem_offset; // keeps track of where new declarations should be placed
+        CodeGenerator(); // constructor
+        void addSymbol(const char* pid, ull num1, ull num2);
+        void addSymbol(const char* pid);
 };
 
 #endif

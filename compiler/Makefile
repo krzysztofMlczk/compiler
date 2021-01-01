@@ -38,6 +38,7 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./blocks/commands/cComWrite.cpp \
 	./symbol_table/cSymbolTable.cpp \
 	./symbol_table/cSymbol.cpp \
+	./code_generator/cCodeGenerator.cpp \
 	-o kompilator
 
 clean:

@@ -134,7 +134,7 @@ int main(int argc, char** argv){
   if (argc != 2){
     printf("Invalid amount of parameters\n");
     printf("Program usage: \n");
-    printf("compiler <input file> <output file>\n");
+    printf("kompilator <input file> <output file>\n");
 
     return 0;
   }

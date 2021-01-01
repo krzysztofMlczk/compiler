@@ -19,3 +19,20 @@ void CodeGenerator::addSymbol(const char* pid) {
     Symbol* new_symbol = new Symbol(std::string(pid), this->mem_offset);
     this->symbolTable.addSymbol(new_symbol);
 }
+
+/*
+* Method for generating code "recursively"
+*/
+vector<string> generateCode(vector<Command*>* cmds) {
+    vector<string> code;
+    vector<string> outcome;
+    vector<Command*>::iterator it = cmds->begin();
+
+    for (; it != cmds->end(); ++it) {
+        // outcome = (*it)->getCode(); - get output from getCode() method
+        // append outcome to code vector
+        code.insert(code.end(), outcome.begin(), outcome.end());
+    }
+
+    return code;
+}

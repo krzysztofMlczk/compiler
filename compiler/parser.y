@@ -8,6 +8,7 @@
   extern int yylineno;
   extern FILE* yyin;
   CodeGenerator cg;
+  vector<string> code;
 
   void yyerror (const char *str);
 
@@ -71,8 +72,8 @@
 %% /* The grammar follows. */
 
 program:
-   DECLARE declarations BEGIN_T commands END
- | BEGIN_T commands END
+   DECLARE declarations BEGIN_T commands END                  { code = cg.generateCode($4); }
+ | BEGIN_T commands END                                       { code = cg.generateCode($2); }                                                            
  ;
 
 declarations:

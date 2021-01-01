@@ -11,8 +11,8 @@ class ComForDownto: public Command {
     public:
         Value* from;
         Value* downto;
-        vector<Command*> commands;
-        ComForDownto(Value* from, Value* downto, vector<Command*> cmds);
+        vector<Command*>* commands;
+        ComForDownto(Value* from, Value* downto, vector<Command*>* cmds);
         virtual string getCode();
 };
 

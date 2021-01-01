@@ -11,8 +11,8 @@
 class ComIf: public Command {
     public:
         Condition* condition;
-        vector<Command*> commands;
-        ComIf(Condition* cond, vector<Command*> cmds);
+        vector<Command*>* commands;
+        ComIf(Condition* cond, vector<Command*>* cmds);
         virtual string getCode();
 };
 

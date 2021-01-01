@@ -11,8 +11,8 @@
 class ComWhile: public Command {
     public:
         Condition* condition;
-        vector<Command*> commands;
-        ComWhile(Condition* cond, vector<Command*> cmds);
+        vector<Command*>* commands;
+        ComWhile(Condition* cond, vector<Command*>* cmds);
         virtual string getCode();
 };
 

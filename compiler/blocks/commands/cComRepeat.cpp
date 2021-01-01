@@ -1,6 +1,6 @@
 #include "cComRepeat.hpp"
 
-ComRepeat::ComRepeat(vector<Command*> cmds, Condition* cond) {
+ComRepeat::ComRepeat(vector<Command*>* cmds, Condition* cond) {
     this->commands = cmds;
     this->condition = cond;
 }

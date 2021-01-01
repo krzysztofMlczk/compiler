@@ -10,7 +10,6 @@ class Symbol {
     public:
         std::string name;
         ull offset; //position in memory
-        ull value;
         bool initialized;
         bool is_array;
         bool is_iterator;

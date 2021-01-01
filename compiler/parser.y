@@ -2,10 +2,12 @@
   #include <iostream>
   #include <string>
   #include <vector>
+  #include "code_generator/cCodeGenerator.hpp"
 
   extern int yylex();
   extern int yylineno;
   extern FILE* yyin;
+  CodeGenerator cg;
 
   void yyerror (const char *str);
 
@@ -24,7 +26,7 @@
   Condition* cond;
   Expression* exp;
   Command* cmd;
-  vector<Command*> cmds;
+  vector<Command*>* cmds;
 }
 
 %type<numberVal> NUMBER
@@ -74,17 +76,20 @@ program:
  ;
 
 declarations:
-  declarations ',' PIDENTIFIER
-| declarations ',' PIDENTIFIER '(' NUMBER ':' NUMBER ')'
-| PIDENTIFIER
-| PIDENTIFIER '(' NUMBER ':' NUMBER ')'
+  declarations ',' PIDENTIFIER                                { cg.addSymbol($3);           }
+| declarations ',' PIDENTIFIER '(' NUMBER ':' NUMBER ')'      { cg.addSymbol($3, $5, $7);   }
+| PIDENTIFIER                                                 { cg.addSymbol($1);           }
+| PIDENTIFIER '(' NUMBER ':' NUMBER ')'                       { cg.addSymbol($1, $3, $5);   }
 ;
 
 commands:
-  commands command                                            { $$ = $1.push_back($2);              }
+  commands command                                            { 
+                                                                $1->push_back($2);
+                                                                $$ = $1;
+                                                              }
 | command                                                     { 
-                                                                vector<Command*> v;
-                                                                v.push_back($1);
+                                                                vector<Command*>* v = new vector<Command*>;
+                                                                v->push_back($1);
                                                                 $$ = v;
                                                               }
 ;

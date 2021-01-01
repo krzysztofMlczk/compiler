@@ -8,7 +8,7 @@
 */
 class SymbolTable {
     public:
-        std::vector<Symbol *> table;
+        std::vector<Symbol*> table;
         SymbolTable();
         void addSymbol(Symbol* sym);
         void rmSymbol(Symbol* sym);

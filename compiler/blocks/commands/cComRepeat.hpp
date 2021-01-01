@@ -10,9 +10,9 @@
 */
 class ComRepeat: public Command {
     public:
-        vector<Command*> commands;
+        vector<Command*>* commands;
         Condition* condition;
-        ComRepeat(vector<Command*> cmds, Condition* cond);
+        ComRepeat(vector<Command*>* cmds, Condition* cond);
         virtual string getCode();
 };
 

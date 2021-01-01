@@ -11,8 +11,8 @@ class ComFor: public Command {
     public:
         Value* from;
         Value* to;
-        vector<Command*> commands;
-        ComFor(Value* from, Value* to, vector<Command*> cmds);
+        vector<Command*>* commands;
+        ComFor(Value* from, Value* to, vector<Command*>* cmds);
         virtual string getCode();
 };
 

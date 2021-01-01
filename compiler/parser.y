@@ -13,7 +13,7 @@
 
 %code requires {
   #include <vector>
-  #include "blocks_fwd.hpp"
+  #include "fwds/blocks_fwd.hpp"
 }
 
 %union {

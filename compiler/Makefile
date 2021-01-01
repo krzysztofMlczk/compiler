@@ -36,6 +36,8 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./blocks/commands/cComRepeat.cpp \
 	./blocks/commands/cComWhile.cpp \
 	./blocks/commands/cComWrite.cpp \
+	./symbol_table/cSymbolTable.cpp \
+	./symbol_table/cSymbol.cpp \
 	-o kompilator
 
 clean:

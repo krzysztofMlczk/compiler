@@ -14,7 +14,9 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./interfaces/iExpression.cpp \
 	./interfaces/iValue.cpp \
 	./blocks/values/cConstant.cpp \
-	./blocks/values/cVariable.cpp \
+	./blocks/values/cVariableSingle.cpp \
+	./blocks/values/cVariableArrNum.cpp \
+	./blocks/values/cVariableArrSingle.cpp \
 	./blocks/expressions/cExpAdd.cpp \
 	./blocks/expressions/cExpAsVal.cpp \
 	./blocks/expressions/cExpDiv.cpp \

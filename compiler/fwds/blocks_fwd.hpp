@@ -17,7 +17,9 @@
 * ===============================
 */
 #include "../blocks/values/cConstant.hpp"
-#include "../blocks/values/cVariable.hpp"
+#include "../blocks/values/cVariableSingle.hpp"
+#include "../blocks/values/cVariableArrNum.hpp"
+#include "../blocks/values/cVariableArrSingle.hpp"
 
 #include "../blocks/expressions/cExpAdd.hpp"
 #include "../blocks/expressions/cExpAsVal.hpp"

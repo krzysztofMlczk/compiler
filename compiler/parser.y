@@ -133,9 +133,9 @@ value:
 ;
 
 identifier:
-  PIDENTIFIER                       { $$ = new Variable(std::string($1));                   }
-| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new Variable(std::string($1), std::string($3));  }
-| PIDENTIFIER '(' NUMBER ')'        { $$ = new Variable(std::string($1), $3);               }
+  PIDENTIFIER                       { $$ = new VariableSingle(std::string($1));                     }
+| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new VariableArrSingle(std::string($1), std::string($3)); }
+| PIDENTIFIER '(' NUMBER ')'        { $$ = new VariableArrNum(std::string($1), $3);                 }
 ;
 
 %%

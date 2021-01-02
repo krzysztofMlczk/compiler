@@ -39,6 +39,8 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./symbol_table/cSymbolTable.cpp \
 	./symbol_table/cSymbol.cpp \
 	./code_generator/cCodeGenerator.cpp \
+	./io_handler/cIoHandler.cpp \
+	./exceptions/cException.hpp \
 	-o kompilator
 
 clean:

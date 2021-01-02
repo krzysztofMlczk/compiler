@@ -3,12 +3,14 @@
   #include <string>
   #include <vector>
   #include "code_generator/cCodeGenerator.hpp"
+  #include "io_handler/cIoHandler.hpp"
 
   extern int yylex();
   extern int yylineno;
   extern FILE* yyin;
   CodeGenerator cg;
   vector<string> code;
+
 
   void yyerror (const char *str);
 
@@ -140,40 +142,26 @@ identifier:
 
 int main(int argc, char** argv){
 
-  // skip program name from given params
-  argc--;
-  argv++;
+  IOhandler io_handler(argc, argv);
 
-  if (argc != 2){
-    printf("Invalid amount of parameters\n");
-    printf("Program usage: \n");
-    printf("kompilator <input file> <output file>\n");
+  try {
 
+    yyin = io_handler.read_code();
+
+  } catch (const exception& e) {
+
+    cerr << e.what() << endl;
     return 0;
   }
-
-  FILE* input_file = fopen(argv[0], "r");
-
-  if (input_file == NULL){
-    printf("Unable to open file: %s\n", argv[0]);
-
-    return 0;
-  }
-
-  yyin = input_file;
 
   if(yyparse() != 0) {
-    fclose(input_file);
-    printf("Parsing failed\n");
-
+    io_handler.close_input_file();
+    cerr << "Parsing failed!" << endl;
     return 0;
   }
-
-  fclose(input_file);
 
   return 0;
 }
-
 
 void yyerror (char const *err_msg)
 {

@@ -1,7 +1,7 @@
 #include "cCodeGenerator.hpp"
 
 CodeGenerator::CodeGenerator() {
-
+    //constructor
 }
 
 /*
@@ -23,7 +23,7 @@ void CodeGenerator::addSymbol(const char* pid) {
 /*
 * Method for generating code "recursively"
 */
-vector<string> generateCode(vector<Command*>* cmds) {
+vector<string> CodeGenerator::generateCode(vector<Command*>* cmds) {
     vector<string> code;
     vector<string> outcome;
     vector<Command*>::iterator it = cmds->begin();
@@ -33,6 +33,8 @@ vector<string> generateCode(vector<Command*>* cmds) {
         // append outcome to code vector
         code.insert(code.end(), outcome.begin(), outcome.end());
     }
+
+    code.push_back("HALT");
 
     return code;
 }

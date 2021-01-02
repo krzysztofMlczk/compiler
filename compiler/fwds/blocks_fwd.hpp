@@ -9,6 +9,7 @@
 #include "../interfaces/iCondition.hpp"
 #include "../interfaces/iExpression.hpp"
 #include "../interfaces/iValue.hpp"
+#include "../interfaces/iIdentifier.hpp"
 
 /*
 * ===============================
@@ -16,10 +17,12 @@
 *             CLASSES
 * ===============================
 */
+#include "../blocks/identifiers/cIdentifierSingle.hpp"
+#include "../blocks/identifiers/cIdentifierArrSingle.hpp"
+#include "../blocks/identifiers/cIdentifierArrNum.hpp"
+
 #include "../blocks/values/cConstant.hpp"
-#include "../blocks/values/cVariableSingle.hpp"
-#include "../blocks/values/cVariableArrNum.hpp"
-#include "../blocks/values/cVariableArrSingle.hpp"
+#include "../blocks/values/cVariableValue.hpp"
 
 #include "../blocks/expressions/cExpAdd.hpp"
 #include "../blocks/expressions/cExpAsVal.hpp"

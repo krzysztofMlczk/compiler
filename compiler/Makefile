@@ -13,10 +13,11 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./interfaces/iCondition.cpp \
 	./interfaces/iExpression.cpp \
 	./interfaces/iValue.cpp \
+	./blocks/identifiers/cIdentifierSingle.cpp \
+	./blocks/identifiers/cIdentifierArrSingle.cpp \
+	./blocks/identifiers/cIdentifierArrNum.cpp \
 	./blocks/values/cConstant.cpp \
-	./blocks/values/cVariableSingle.cpp \
-	./blocks/values/cVariableArrNum.cpp \
-	./blocks/values/cVariableArrSingle.cpp \
+	./blocks/values/cVariableValue.cpp \
 	./blocks/expressions/cExpAdd.cpp \
 	./blocks/expressions/cExpAsVal.cpp \
 	./blocks/expressions/cExpDiv.cpp \

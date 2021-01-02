@@ -25,6 +25,7 @@
 %union {
   unsigned long long numberVal;
   const char* stringVal;
+  Identifier* ident;
   Value* val;
   Condition* cond;
   Expression* exp;
@@ -35,7 +36,7 @@
 %type<numberVal> NUMBER
 %type<stringVal> PIDENTIFIER
 
-%type<val> identifier
+%type<ident> identifier
 %type<val> value
 %type<cond> condition
 %type<exp> expression
@@ -129,13 +130,13 @@ condition:
 
 value:                
   NUMBER                            { $$ = new Constant($1);      }
-| identifier                        { $$ = $1;                    }
+| identifier                        { $$ = new VariableValue($1); }
 ;
 
 identifier:
-  PIDENTIFIER                       { $$ = new VariableSingle(std::string($1));                     }
-| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new VariableArrSingle(std::string($1), std::string($3)); }
-| PIDENTIFIER '(' NUMBER ')'        { $$ = new VariableArrNum(std::string($1), $3);                 }
+  PIDENTIFIER                       { $$ = new IdentifierSingle(std::string($1));                     }
+| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new IdentifierArrSingle(std::string($1), std::string($3)); }
+| PIDENTIFIER '(' NUMBER ')'        { $$ = new IdentifierArrNum(std::string($1), $3);                 }
 ;
 
 %%

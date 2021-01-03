@@ -5,5 +5,11 @@ VariableValue::VariableValue(Identifier* ident) {
 }
 
 vector<string> VariableValue::getCode(SymbolTable* symbolTable) {
-    return vector<string>();
+    vector<string> code;
+
+    this->ident->outcome_reg = this->outcome_reg;
+    code = this->ident->getCode(symbolTable);
+    code.push_back("LOAD " + this->outcome_reg + " " + this->outcome_reg);
+
+    return code;
 }

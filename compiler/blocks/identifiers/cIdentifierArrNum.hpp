@@ -1,7 +1,7 @@
 #ifndef CIDENTARRNUM_HPP
 #define CIDENTARRNUM_HPP
 #include "../../interfaces/iIdentifier.hpp"
-#include <string>
+#include "../values/cConstant.hpp"
 
 /*
 * class of an Identifier for a pidentifier(number) "type" variable
@@ -13,7 +13,7 @@ class IdentifierArrNum: public Identifier {
         // Arr[number] Identifier constructor
         IdentifierArrNum(string pid_ext, ull index);
 
-        virtual string getCode();
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 };
 
 #endif

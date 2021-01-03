@@ -1,7 +1,8 @@
 #ifndef CIDENTARRSINGLE_HPP
 #define CIDENTARRSINGLE_HPP
 #include "../../interfaces/iIdentifier.hpp"
-#include <string>
+#include "cIdentifierSingle.hpp"
+#include "../values/cVariableValue.hpp"
 
 /*
 * class of an Identifier for a pidentifier(pidentifier) "type" variable
@@ -10,10 +11,12 @@ class IdentifierArrSingle: public Identifier {
     public:
         string pid_ext;
         string pid_int;
+        const ull clobber_counter = 1;
+        vector<string> clobbers;
         // Arr[pid] identifier constructor
         IdentifierArrSingle(string pid_ext, string pid_int);
 
-        virtual string getCode();
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 };
 
 #endif

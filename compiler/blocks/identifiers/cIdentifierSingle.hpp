@@ -1,7 +1,8 @@
 #ifndef CIDENTSINGLE_HPP
 #define CIDENTSINGLE_HPP
 #include "../../interfaces/iIdentifier.hpp"
-#include <string>
+#include "../../symbol_table/cSymbolTable.hpp"
+#include "../values/cConstant.hpp"
 
 /*
 * class of an Identifier for a single variable
@@ -12,7 +13,7 @@ class IdentifierSingle: public Identifier {
         // Single Identifier constructor
         IdentifierSingle(string pid);
 
-        virtual string getCode();
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 };
 
 #endif

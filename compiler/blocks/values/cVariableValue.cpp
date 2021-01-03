@@ -4,6 +4,6 @@ VariableValue::VariableValue(Identifier* ident) {
     this->ident = ident;
 }
 
-string VariableValue::getCode() {
-    return "";
+vector<string> VariableValue::getCode(SymbolTable* symbolTable) {
+    return vector<string>();
 }

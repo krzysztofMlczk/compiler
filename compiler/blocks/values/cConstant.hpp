@@ -1,7 +1,6 @@
 #ifndef CCONSTANT_HPP
 #define CCONSTANT_HPP
 #include "../../interfaces/iValue.hpp"
-#include <string>
 
 /*
 *   Constant Values CLASS
@@ -12,7 +11,7 @@ class Constant: public Value {
         ull value;
         Constant(ull num);
 
-        virtual string getCode();
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 
 };
 

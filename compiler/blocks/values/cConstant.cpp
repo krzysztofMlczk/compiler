@@ -4,6 +4,6 @@ Constant::Constant(ull number) {
     this->value = number;
 }
 
-string Constant::getCode() {
-    return "";
+vector<string> Constant::getCode(SymbolTable* symbolTable) {
+    return vector<string>();
 }

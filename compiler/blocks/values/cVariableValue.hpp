@@ -1,7 +1,7 @@
 #ifndef CVARVAL_HPP
 #define CVARVAL_HPP
-#include "../interfaces/iValue.hpp"
-#include "../interfaces/iIdentifier.hpp"
+#include "../../interfaces/iValue.hpp"
+#include "../../interfaces/iIdentifier.hpp"
 #include <string>
 
 class VariableValue: public Value {

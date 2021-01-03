@@ -1,6 +1,7 @@
 #ifndef CCOMREAD_HPP
 #define CCOMREAD_HPP
 #include "../../interfaces/iCommand.hpp"
+#include "../../interfaces/iIdentifier.hpp"
 #include <string>
 
 /*
@@ -8,8 +9,8 @@
 */
 class ComRead: public Command {
     public:
-        Value* ident;
-        ComRead(Value* id);
+        Identifier* ident;
+        ComRead(Identifier* id);
         virtual string getCode();
 };
 

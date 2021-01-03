@@ -1,6 +1,6 @@
 #include "cComRead.hpp"
 
-ComRead::ComRead(Value* id) {
+ComRead::ComRead(Identifier* id) {
     this->ident = id;
 }
 

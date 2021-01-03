@@ -2,6 +2,7 @@
 #define CCOMASSIGN_HPP
 #include "../../interfaces/iCommand.hpp"
 #include "../../interfaces/iExpression.hpp"
+#include "../../interfaces/iIdentifier.hpp"
 #include <string>
 
 /*
@@ -9,9 +10,9 @@
 */
 class ComAssign: public Command {
     public:
-        Value* ident;
+        Identifier* ident;
         Expression* expression;
-        ComAssign(Value* id, Expression* exp);
+        ComAssign(Identifier* id, Expression* exp);
         virtual string getCode();
 };
 

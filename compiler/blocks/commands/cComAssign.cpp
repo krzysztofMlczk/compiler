@@ -1,6 +1,6 @@
 #include "cComAssign.hpp"
 
-ComAssign::ComAssign(Value* id, Expression* exp) {
+ComAssign::ComAssign(Identifier* id, Expression* exp) {
     this->ident = id;
     this->expression = exp;
 }

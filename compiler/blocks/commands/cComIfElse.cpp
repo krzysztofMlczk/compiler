@@ -8,7 +8,12 @@ ComIfElse::ComIfElse(Condition* cond, vector<Command*>* cmds1, vector<Command*>*
 
 vector<string> ComIfElse::getCode(SymbolTable* symbolTable) {
     vector<string> code;
+    vector<string> occupied_registers{"a"};
+
+    // assign out_reg for condition
     this->condition->outcome_reg = "a";
+    // every condition requires clobbers, then assign them
+    this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
     code = this->condition->getCode(symbolTable);
 
     int jump = this->cmds_when_false->size() + 1;

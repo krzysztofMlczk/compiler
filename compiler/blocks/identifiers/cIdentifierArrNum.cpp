@@ -1,12 +1,12 @@
 #include "cIdentifierArrNum.hpp"
 
-IdentifierArrNum::IdentifierArrNum(string pid_ext, ull index) {
-    this->pid_ext = pid_ext;
+IdentifierArrNum::IdentifierArrNum(string pid_ext, ull index):Identifier(pid_ext) {
     this->index = index;
+    this->check_init = false;
 }
 
 vector<string> IdentifierArrNum::getCode(SymbolTable* symbolTable) {
-    Symbol* sym = symbolTable->getArrVar(this->pid_ext);
+    Symbol* sym = symbolTable->getArrVar(this->pid);
     ull offset = sym->offset;
     ull start = sym->array_start;
     Constant constant(offset + (this->index - start));

@@ -1,8 +1,8 @@
 #include "cIdentifierArrSingle.hpp"
 
-IdentifierArrSingle::IdentifierArrSingle(string pid_ext, string pid_int) {
-    this->pid_ext = pid_ext;
+IdentifierArrSingle::IdentifierArrSingle(string pid_ext, string pid_int):Identifier(pid_ext) {
     this->pid_int = pid_int;
+    this->check_init = false;
 }
 
 vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable) {
@@ -13,7 +13,7 @@ vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable) {
     varVal.outcome_reg = this->clobbers.at(0);
     code = varVal.getCode(symbolTable);
 
-    Symbol* sym = symbolTable->getArrVar(this->pid_ext);
+    Symbol* sym = symbolTable->getArrVar(this->pid);
     ull offset = sym->offset;
     ull start = sym->array_start;
 

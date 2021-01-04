@@ -8,7 +8,6 @@
 */
 class IdentifierArrNum: public Identifier {
     public:
-        string pid_ext;
         ull index;
         // Arr[number] Identifier constructor
         IdentifierArrNum(string pid_ext, ull index);

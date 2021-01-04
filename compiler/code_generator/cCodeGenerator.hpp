@@ -16,7 +16,6 @@ typedef unsigned long long ull;
 class CodeGenerator {
     public:
         SymbolTable symbolTable;
-        ull mem_offset; // keeps track of where new declarations should be placed
         CodeGenerator(); // constructor
 
         //add Array variable to symbolTable

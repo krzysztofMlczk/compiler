@@ -1,7 +1,7 @@
 #include "iCommand.hpp"
 
 /*
-* Method for getting register as globbers
+* Method for getting registers as globbers
 */
 vector<string> Command::getClobbers(vector<string>* occupied, ull amount) {
     vector<string> outcome;
@@ -18,6 +18,6 @@ vector<string> Command::getClobbers(vector<string>* occupied, ull amount) {
         }
         i++;
     }
-    
+
     return outcome;
 }

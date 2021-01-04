@@ -9,7 +9,6 @@
 */
 class IdentifierSingle: public Identifier {
     public:
-        string pid;
         // Single Identifier constructor
         IdentifierSingle(string pid);
 

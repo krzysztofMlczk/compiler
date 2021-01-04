@@ -1,7 +1,6 @@
 #ifndef CEXPASVAL_HPP
 #define CEXPASVAL_HPP
 #include "../../interfaces/iExpression.hpp"
-#include <string>
 
 /*
 *   Expression as "value" CLASS
@@ -9,9 +8,7 @@
 class ExpAsVal: public Expression {
     public:
         ExpAsVal(Value* v1);
-        virtual string getCode();
-    protected:
-    private:
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 };
 
 #endif

@@ -1,17 +1,15 @@
 #ifndef CEXPADD_HPP
 #define CEXPADD_HPP
 #include "../../interfaces/iExpression.hpp"
-#include <string>
 
 /*
 *   Expression "+" CLASS
 */
 class ExpAdd: public Expression {
     public:
+        const ull clobber_counter = 1;
         ExpAdd(Value* v1, Value* v2);
-        virtual string getCode();
-    protected:
-    private:
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 };
 
 #endif

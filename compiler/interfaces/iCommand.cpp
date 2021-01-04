@@ -8,12 +8,16 @@ vector<string> Command::getClobbers(vector<string>* occupied, ull amount) {
     string registers[] = {"a", "b", "c", "d", "e", "f"};
     ull counter = 0;
 
-    for (int i = 0; i < 6; i++) {
+    int i = 0;
+
+    while (counter != amount) {
         if (!count(occupied->begin(), occupied->end(), registers[i])) {
             outcome.push_back(registers[i]);
             occupied->push_back(registers[i]);
             counter++;
         }
+        i++;
     }
+    
     return outcome;
 }

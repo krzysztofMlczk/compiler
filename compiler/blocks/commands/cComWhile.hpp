@@ -2,8 +2,6 @@
 #define CCOMWHILE_HPP
 #include "../../interfaces/iCommand.hpp"
 #include "../../interfaces/iCondition.hpp"
-#include <string>
-#include <vector>
 
 /*
 *   While command CLASS
@@ -13,7 +11,7 @@ class ComWhile: public Command {
         Condition* condition;
         vector<Command*>* commands;
         ComWhile(Condition* cond, vector<Command*>* cmds);
-        virtual string getCode();
+        virtual vector<string> getCode(SymbolTable* symbolTable);
 };
 
 #endif

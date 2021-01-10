@@ -2,6 +2,7 @@
 
 VariableValue::VariableValue(Identifier* ident) {
     this->ident = ident;
+    this->is_variable = true;
 }
 
 vector<string> VariableValue::getCode(SymbolTable* symbolTable) {

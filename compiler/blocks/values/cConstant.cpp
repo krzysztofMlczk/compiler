@@ -2,6 +2,7 @@
 
 Constant::Constant(ull number) {
     this->value = number;
+    this->is_variable = false;
 }
 
 vector<string> Constant::getCode(SymbolTable* symbolTable) {

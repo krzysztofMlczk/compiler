@@ -6,6 +6,8 @@ ComForDownto::ComForDownto(Value* from, Value* downto, vector<Command*>* cmds) {
     this->commands = cmds;
 }
 
-string ComForDownto::getCode() {
-    return "";
+vector<string> ComForDownto::getCode(SymbolTable* symbolTable) {
+    vector<string> code;
+
+    
 }

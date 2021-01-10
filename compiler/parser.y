@@ -104,8 +104,8 @@ command:
 | IF condition THEN commands ENDIF                            { $$ = new ComIf($2, $4);             }
 | WHILE condition DO commands ENDWHILE                        { $$ = new ComWhile($2, $4);          }
 | REPEAT commands UNTIL condition ';'                         { $$ = new ComRepeat($2, $4);         }
-| FOR PIDENTIFIER FROM value TO value DO commands ENDFOR      { $$ = new ComFor($4, $6, $8);        }
-| FOR PIDENTIFIER FROM value DOWNTO value DO commands ENDFOR  { $$ = new ComForDownto($4, $6, $8);  }
+| FOR PIDENTIFIER FROM value TO value DO commands ENDFOR      { $$ = new ComFor(std::string($2), $4, $6, $8);        }
+| FOR PIDENTIFIER FROM value DOWNTO value DO commands ENDFOR  { $$ = new ComForDownto(std::string($2), $4, $6, $8);  }
 | READ identifier ';'                                         { $$ = new ComRead($2);               }
 | WRITE value ';'                                             { $$ = new ComWrite($2);              }
 ;

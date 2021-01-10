@@ -26,6 +26,7 @@ vector<string> ComWrite::getCode(SymbolTable* symbolTable) {
     } else if (this->val_const){
         // do the following if value to print is instance of Constant
         Symbol* new_symbol = new Symbol(to_string(val_const->value), symbolTable->mem_offset);
+        // we have to declare new variable in symbol table
         symbolTable->addSymbol(new_symbol);
 
         Identifier* ident = new IdentifierSingle(to_string(val_const->value));
@@ -35,6 +36,9 @@ vector<string> ComWrite::getCode(SymbolTable* symbolTable) {
         // to memory cell where val_const.value is placed so we can simply use PUT
         ComAssign* com_assign = new ComAssign(ident, exp);
         code = com_assign->getCode(symbolTable);
+
+        // remove new symbol from symbol table (we won't need it anymore)
+        symbolTable->rmSymbol(new_symbol);
     }
 
     code.push_back("PUT a");

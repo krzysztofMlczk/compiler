@@ -89,7 +89,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     // go to start of the loop to check if loop should still go
     code.push_back("JUMP -" + to_string(start));
 
-    symbolTable->rmSymbol(iterator); // delete iterator form symbol table
+    symbolTable->rmSymbol(iterator); // delete iterator from symbol table
 
     return code;
 }

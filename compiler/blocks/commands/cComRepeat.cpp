@@ -19,7 +19,8 @@ vector<string> ComRepeat::getCode(SymbolTable* symbolTable) {
     int cmds_len = this->commands->size();
 
     // append commands to code
-    code.insert(code.end(), this->commands->begin(), this->commands->end());
+    this->concat(&code, this->commands, symbolTable);
+
     // append condition code
     code.insert(code.end(), cond_code.begin(), cond_code.end());
 

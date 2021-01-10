@@ -21,10 +21,10 @@ vector<string> ComIfElse::getCode(SymbolTable* symbolTable) {
     code.push_back("JZERO " + to_string(jump)); // jump to true block of commands
 
     // append cmds_when_false to code
-    code.insert(code.end(), this->cmds_when_false->begin(), this->cmds_when_false->end());
+    this->concat(&code, this->cmds_when_false, symbolTable);
 
     // append cmds_when_true to code
-    code.insert(code.end(), this->cmds_when_true->begin(), this->cmds_when_true->end());
+    this->concat(&code, this->cmds_when_true, symbolTable);
 
     return code;
 }

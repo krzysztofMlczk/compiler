@@ -23,7 +23,7 @@ vector<string> ComWhile::getCode(SymbolTable* symbolTable) {
     code.push_back("JZERO a 2"); // go to commands
     code.push_back("JUMP " + to_string(commands_len + 2)); // go to end
     // append commands to code
-    code.insert(code.end(), this->commands->begin(), this->commands->end());
+    this->concat(&code, this->commands, symbolTable);
     
     // jump to begining of condition checking
     code.push_back("JUMP -" + to_string(cond_check_len + 2 + commands_len));

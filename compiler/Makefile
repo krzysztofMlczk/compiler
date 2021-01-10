@@ -12,6 +12,7 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./interfaces/iCommand.cpp \
 	./interfaces/iCondition.cpp \
 	./interfaces/iExpression.cpp \
+	./interfaces/iIdentifier.cpp \
 	./interfaces/iValue.cpp \
 	./blocks/identifiers/cIdentifierSingle.cpp \
 	./blocks/identifiers/cIdentifierArrSingle.cpp \

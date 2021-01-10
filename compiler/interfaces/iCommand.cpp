@@ -21,3 +21,12 @@ vector<string> Command::getClobbers(vector<string>* occupied, ull amount) {
 
     return outcome;
 }
+
+void Command::concat(vector<string>* code, vector<Command*>* cmds, SymbolTable* symbolTable) {
+    vector<Command*>::iterator it = cmds->begin();
+
+    for (; it != cmds->end(); ++it) {
+        vector<string> code1 = (*it)->getCode(symbolTable);
+        code->insert(code->end(), code1.begin(), code1.end());
+    }
+}

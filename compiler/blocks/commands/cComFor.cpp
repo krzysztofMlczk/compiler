@@ -38,11 +38,11 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     vector<string> get_iter_ending_val = this->to->getCode(symbolTable);
 
 
-    int get_iter_ending_val = get_iter_ending_val.size();
+    int get_iter_ending_val_len = get_iter_ending_val.size();
     int get_iter_value_len = get_iter_value.size();
     int get_iter_address_len = get_iter_address.size();
     int commands_len = this->commands->size();
-    int start = 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1;
+    int start = 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1 + get_iter_ending_val_len;
     int end = commands_len + get_iter_address_len + get_iter_value_len + 1 + 1 + 1 + 1;
 
 
@@ -71,7 +71,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     code.push_back("JUMP " + to_string(end));
 
     // commands inside loop
-    code.insert(code.end(), this->commands->begin(), this->commands->end());
+    this->concat(&code, this->commands, symbolTable);
 
     // end of each loop
     // put iter addres in reg a

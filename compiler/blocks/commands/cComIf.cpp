@@ -20,7 +20,7 @@ vector<string> ComIf::getCode(SymbolTable* symbolTable) {
     code.push_back("JZERO a 2");
     code.push_back("JUMP " + to_string(jump));
     // append cmds to perform when condition output is true
-    code.insert(code.end(), this->commands->begin(), this->commands->end());
+    this->concat(&code, this->commands, symbolTable);
 
     return code;
 }

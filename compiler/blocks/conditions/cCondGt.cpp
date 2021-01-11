@@ -1,7 +1,7 @@
 #include "cCondGt.hpp"
 
 CondGt::CondGt(Value* val1, Value* val2):Condition(val1, val2){
-    
+    this->clobber_counter = 1;
 }
 
 vector<string> CondGt::getCode(SymbolTable* symbolTable) {

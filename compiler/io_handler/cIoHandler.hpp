@@ -1,7 +1,8 @@
 #ifndef CIOHAN_HPP
 #define CIOHAN_HPP
-#include <iostream>
 #include <cstdio>
+#include <vector>
+#include <string>
 #include "../exceptions/cException.hpp"
 
 /*
@@ -15,6 +16,7 @@ class IOhandler {
         IOhandler(int argc, char** argv);
         FILE* read_code();
         void close_input_file();
+        void print(std::vector<std::string>& code);
 };
 
 #endif

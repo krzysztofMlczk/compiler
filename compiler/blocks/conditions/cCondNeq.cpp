@@ -1,7 +1,7 @@
 #include "cCondNeq.hpp"
 
 CondNeq::CondNeq(Value* val1, Value* val2):Condition(val1, val2) {
-    
+    this->clobber_counter = 2;
 }
 
 vector<string> CondNeq::getCode(SymbolTable* symbolTable) {

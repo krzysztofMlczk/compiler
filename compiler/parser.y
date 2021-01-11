@@ -99,15 +99,15 @@ commands:
 ;
 
 command:
-  identifier ASSIGN expression ';'                            { $$ = new ComAssign($1, $3);         }
-| IF condition THEN commands ELSE commands ENDIF              { $$ = new ComIfElse($2, $4, $6);     }
-| IF condition THEN commands ENDIF                            { $$ = new ComIf($2, $4);             }
-| WHILE condition DO commands ENDWHILE                        { $$ = new ComWhile($2, $4);          }
-| REPEAT commands UNTIL condition ';'                         { $$ = new ComRepeat($2, $4);         }
-| FOR PIDENTIFIER FROM value TO value DO commands ENDFOR      { $$ = new ComFor(std::string($2), $4, $6, $8);        }
-| FOR PIDENTIFIER FROM value DOWNTO value DO commands ENDFOR  { $$ = new ComForDownto(std::string($2), $4, $6, $8);  }
-| READ identifier ';'                                         { $$ = new ComRead($2);               }
-| WRITE value ';'                                             { $$ = new ComWrite($2);              }
+  identifier ASSIGN expression ';'                            { $$ = new ComAssign($1, $3);                           }
+| IF condition THEN commands ELSE commands ENDIF              { $$ = new ComIfElse($2, $4, $6);                       }
+| IF condition THEN commands ENDIF                            { $$ = new ComIf($2, $4);                               }
+| WHILE condition DO commands ENDWHILE                        { $$ = new ComWhile($2, $4);                            }
+| REPEAT commands UNTIL condition ';'                         { $$ = new ComRepeat($2, $4);                           }
+| FOR PIDENTIFIER FROM value TO value DO commands ENDFOR      { $$ = new ComFor(std::string($2), $4, $6, $8);         }
+| FOR PIDENTIFIER FROM value DOWNTO value DO commands ENDFOR  { $$ = new ComForDownto(std::string($2), $4, $6, $8);   }  
+| READ identifier ';'                                         { $$ = new ComRead($2);                                 }
+| WRITE value ';'                                             { $$ = new ComWrite($2);                                }
 ;
 
 expression:
@@ -142,9 +142,9 @@ identifier:
 %%
 
 int main(int argc, char** argv){
-
+  
   IOhandler io_handler(argc, argv);
-
+  
   try {
 
     yyin = io_handler.read_code();
@@ -160,6 +160,8 @@ int main(int argc, char** argv){
     cerr << "Parsing failed!" << endl;
     return 0;
   }
+
+  io_handler.print(code);
 
   return 0;
 }

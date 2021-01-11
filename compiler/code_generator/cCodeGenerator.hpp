@@ -4,6 +4,7 @@
 #include <vector>
 #include "../symbol_table/cSymbolTable.hpp"
 #include "../interfaces/iCommand.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ class CodeGenerator {
         //add Array variable to symbolTable
         void addSymbol(const char* pid, ull num1, ull num2);
 
-        //add regular variable to symbolTable
+        //add single variable to symbolTable
         void addSymbol(const char* pid);
 
         vector<string> generateCode(vector<Command*>* cmds);

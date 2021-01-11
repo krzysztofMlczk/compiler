@@ -42,13 +42,13 @@ vector<string> ComForDownto::getCode(SymbolTable* symbolTable) {
     int get_iter_value_len = get_iter_value.size();
     int get_iter_address_len = get_iter_address.size();
     int commands_len = this->commands->size();
-    int start = 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1 + get_iter_ending_val_len;
-    int end = commands_len + get_iter_address_len + get_iter_value_len + 1 + 1 + 1 + 1;
+    int start = 1 + 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1 + get_iter_ending_val_len;
+    int end = commands_len + get_iter_address_len + get_iter_value_len + 1 + 1 + 1 + 1 + 1;
 
 
     // code structure
 
-    // put iter addres in reg a
+    // put iter address in reg a
     code.insert(code.end(), get_iter_address.begin(), get_iter_address.end());
 
     // put iter starting value in reg b
@@ -79,6 +79,9 @@ vector<string> ComForDownto::getCode(SymbolTable* symbolTable) {
 
     // put iter value in reg b
     code.insert(code.end(), get_iter_value.begin(), get_iter_value.end());
+
+    // check if iterator is already 0
+    code.push_back("JZERO b 4");
 
     // decrement iterator
     code.push_back("DEC b");

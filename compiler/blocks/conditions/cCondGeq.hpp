@@ -8,7 +8,6 @@
 */
 class CondGeq: public Condition {
     public:
-        const ull clobber_counter = 1;
         CondGeq(Value* v1, Value* v2);
         virtual vector<string> getCode(SymbolTable* symbolTable);
 };

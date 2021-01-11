@@ -15,7 +15,7 @@ FILE* IOhandler::read_code() {
         \nkompilator <input file> <output file>");
     }
 
-    this->input_file = fopen(argv[0], "r");
+    this->input_file = fopen(this->argv[0], "r");
 
     if (this->input_file == NULL){
         throw Exception("Unable to open file: " + std::string(argv[0]) + "\n");
@@ -28,4 +28,17 @@ FILE* IOhandler::read_code() {
 */
 void IOhandler::close_input_file() {
     fclose(this->input_file);
+}
+
+/*
+* Method for printing generated code to file
+*/
+void IOhandler::print(std::vector<std::string>& code) {
+    std::vector<std::string>::iterator it = code.begin();
+
+    FILE* output_file = fopen(this->argv[1], "w");
+    for (; it != code.end(); ++it) {
+        fprintf(output_file, "%s\n", (*it).c_str());
+    }
+    fclose(output_file);
 }

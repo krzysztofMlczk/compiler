@@ -6,6 +6,7 @@ ComAssign::ComAssign(Identifier* id, Expression* exp) {
 }
 
 vector<string> ComAssign::getCode(SymbolTable* symbolTable) {
+    
     vector<string> code;
     // reserve two registers (for ident and for expression)
     vector<string> occupied_registers{"a", "b"};

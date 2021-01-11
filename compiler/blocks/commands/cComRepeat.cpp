@@ -11,8 +11,10 @@ vector<string> ComRepeat::getCode(SymbolTable* symbolTable) {
 
     // assign out_reg for condition
     this->condition->outcome_reg = "a";
+    
     // every condition requires clobbers, then assign them
     this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
+    cout << this->condition->clobber_counter << endl;
     vector<string> cond_code = this->condition->getCode(symbolTable);
 
     int cond_code_len = cond_code.size();
@@ -23,7 +25,7 @@ vector<string> ComRepeat::getCode(SymbolTable* symbolTable) {
 
     // append condition code
     code.insert(code.end(), cond_code.begin(), cond_code.end());
-
+    
     code.push_back("JZERO a 2");
     code.push_back("JUMP -" + to_string(cmds_len + cond_code_len + 1));
 

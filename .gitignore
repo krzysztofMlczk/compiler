@@ -3,3 +3,5 @@ maszyna_wirtualna/
 UWAGI_GOTFRYDA
 ./compiler/test.imp
 ./compiler/out.txt
+./compiler/launch.json
+./compiler/tasks.json

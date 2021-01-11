@@ -10,7 +10,6 @@
 class IdentifierArrSingle: public Identifier {
     public:
         string pid_int;
-        const ull clobber_counter = 1;
         // Arr[pid] identifier constructor
         IdentifierArrSingle(string pid_ext, string pid_int);
 

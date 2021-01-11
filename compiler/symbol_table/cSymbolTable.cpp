@@ -5,6 +5,12 @@ SymbolTable::SymbolTable() {
 }
 
 void SymbolTable::addSymbol(Symbol* sym) {
+    // when someone tries to declare array for example: arr(100:5)
+    if (sym->is_array && sym->array_start > sym->array_end) {
+        throw Exception("Invalid range for array variable: " + sym->name);
+        return;
+    }
+    // otherwise just declare new symbol
     this->table.push_back(sym);
     this->mem_offset += sym->size;
 }
@@ -24,6 +30,8 @@ void SymbolTable::rmSymbol(Symbol* sym) {
     if (position != this->table.end()) // == myVector.end() means the element was not found
         this->table.erase(position);
     this->mem_offset -= sym->size;
+
+    delete sym;
 }
 
 Symbol* SymbolTable::getSingleVar(string pid, bool check_init) {

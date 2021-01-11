@@ -1,7 +1,7 @@
 #include "cExpAdd.hpp"
 
 ExpAdd::ExpAdd(Value* val1, Value* val2):Expression(val1, val2) {
-    //constructor
+    this->clobber_counter = 1;
 }
 
 vector<string> ExpAdd::getCode(SymbolTable* symbolTable) {

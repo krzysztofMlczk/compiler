@@ -17,7 +17,7 @@ vector<string> ComWhile::getCode(SymbolTable* symbolTable) {
 
     // before each loop iteration condition has to be checked
     int cond_check_len = code.size();
-    int commands_len = this->commands->size();
+    int commands_len = this->count_instructions(this->commands, symbolTable);
 
     // condition checking
     code.push_back("JZERO a 2"); // go to commands

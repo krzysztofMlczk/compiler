@@ -12,7 +12,6 @@ vector<string> ComIf::getCode(SymbolTable* symbolTable) {
     // assign out_reg for condition
     this->condition->outcome_reg = "a";
     // every condition requires clobbers, then assign them
-    cout << this->condition->clobber_counter << endl;
     this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
     code = this->condition->getCode(symbolTable);
 

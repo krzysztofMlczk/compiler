@@ -10,8 +10,6 @@ class ExpMod: public Expression {
     public:
         ExpMod(Value* v1, Value* v2);
         virtual vector<string> getCode(SymbolTable* symbolTable);
-    protected:
-    private:
 };
 
 #endif

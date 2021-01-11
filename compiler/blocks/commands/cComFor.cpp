@@ -15,18 +15,18 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     // add iterator to symbol table
     symbolTable->addSymbol(iterator);
 
-    Identifier* iter_ident = new IdentifierSingle(this->iter_name);
+    IdentifierSingle iter_ident(this->iter_name);
     // set register where address of iterator will appear
     // this ident doesn't need clobbers because it is single
-    iter_ident->outcome_reg = "a";
+    iter_ident.outcome_reg = "a";
     // this code puts addres of iterator in register a
-    vector<string> get_iter_address = iter_ident->getCode(symbolTable); 
+    vector<string> get_iter_address = iter_ident.getCode(symbolTable);
 
     // create VariableValue object for iterator, so we can easily get current iterator value in specific register
-    Value* iter_value = new VariableValue(iter_ident);
-    iter_value->outcome_reg = "b";
+    VariableValue iter_value(&iter_ident);
+    iter_value.outcome_reg = "b";
     // this code puts value of the iterator in register b
-    vector<string> get_iter_value = iter_value->getCode(symbolTable);
+    vector<string> get_iter_value = iter_value.getCode(symbolTable);
 
     // set register where iterator starting value will appear
     this->from->outcome_reg = "b";
@@ -41,7 +41,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     int get_iter_ending_val_len = get_iter_ending_val.size();
     int get_iter_value_len = get_iter_value.size();
     int get_iter_address_len = get_iter_address.size();
-    int commands_len = this->commands->size();
+    int commands_len = this->count_instructions(this->commands, symbolTable);
     int start = 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1 + get_iter_ending_val_len;
     int end = commands_len + get_iter_address_len + get_iter_value_len + 1 + 1 + 1 + 1;
 
@@ -57,10 +57,10 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     // store starting value of iterator
     code.push_back("STORE b a");
 
+    // this will be done before each iteration
     // put iter ending value in reg c
     code.insert(code.end(), get_iter_ending_val.begin(), get_iter_ending_val.end());
 
-    // this will be done before each iteration
     // perform: current_iterator_value - iterator_ending_value
     code.push_back("SUB b c");
     // if we get 0 in b, then current_iterator_value <= iterator_ending_value

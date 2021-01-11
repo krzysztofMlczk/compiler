@@ -14,11 +14,10 @@ vector<string> ComRepeat::getCode(SymbolTable* symbolTable) {
     
     // every condition requires clobbers, then assign them
     this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
-    cout << this->condition->clobber_counter << endl;
     vector<string> cond_code = this->condition->getCode(symbolTable);
 
     int cond_code_len = cond_code.size();
-    int cmds_len = this->commands->size();
+    int cmds_len = this->count_instructions(this->commands, symbolTable);
 
     // append commands to code
     this->concat(&code, this->commands, symbolTable);

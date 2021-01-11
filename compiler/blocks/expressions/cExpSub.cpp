@@ -1,7 +1,7 @@
 #include "cExpSub.hpp"
 
 ExpSub::ExpSub(Value* val1, Value* val2):Expression(val1, val2) {
-
+    this->clobber_counter = 1;
 }
 
 vector<string> ExpSub::getCode(SymbolTable* symbolTable) {

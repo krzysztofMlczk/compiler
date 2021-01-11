@@ -16,7 +16,7 @@ vector<string> ComIfElse::getCode(SymbolTable* symbolTable) {
     this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
     code = this->condition->getCode(symbolTable);
 
-    int jump = this->cmds_when_false->size() + 1;
+    int jump = this->count_instructions(this->cmds_when_false, symbolTable) + 1;
 
     code.push_back("JZERO " + to_string(jump)); // jump to true block of commands
 

@@ -3,6 +3,7 @@
 IdentifierArrSingle::IdentifierArrSingle(string pid_ext, string pid_int):Identifier(pid_ext) {
     this->pid_int = pid_int;
     this->check_init = false;
+    this->clobber_counter = 1;
 }
 
 vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable) {

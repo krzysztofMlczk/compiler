@@ -1,5 +1,6 @@
 #ifndef CCONSTANT_HPP
 #define CCONSTANT_HPP
+#include <tgmath.h>
 #include "../../interfaces/iValue.hpp"
 
 /*

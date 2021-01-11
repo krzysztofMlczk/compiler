@@ -11,53 +11,18 @@ vector<string> Constant::getCode(SymbolTable* symbolTable) {
     code.push_back("RESET " + this->outcome_reg);
     ull number = this->value;
 
-    while (number != 0) {
-        // if last bit of number is equal to 1, then add INC instruction
-        if (number & 1)
+    unsigned short value_len_in_bits = floor(log2(this->value)) + 1;
+
+    for (int i = value_len_in_bits - 1; i > 0; i--) {
+        if (number & 1 << i) {
             code.push_back("INC " + this->outcome_reg);
-        // if last bit of number is equal to 0, then we don't need to increment
-        // but in both cases we have to shift left
-
-        
-
+        }
         code.push_back("SHL " + this->outcome_reg);
-
-        // bit shift number to the right
-        number >>= 1; // number = number >> 1
     }
 
-    // while (number != 0) {
-    //     // if last bit of number is equal to 1, then add INC instruction
-    //     if (number & 1)
-    //         code.push_back("INC " + this->outcome_reg);
-    //     // if last bit of number is equal to 0, then we don't need to increment
-    //     // but in both cases we have to shift left
+    if (number & 1) {
+        code.push_back("INC " + this->outcome_reg);
+    }
 
-    //     // bit shift number to the right
-    //     number >>= 1; // number = number >> 1
-
-    //     if (number != 0) {
-    //         code.push_back("SHL " + this->outcome_reg);
-    //     }
-    // }
-
-    // // jesli pierwszym bitem jest 1 to robimy inc
-    // if (number & 1)
-    //     code.push_back("INC");
-    // // jesli jest 0 to nic nie musimy robic
-    // // wygenerowalismy bit liczby, wiec przesuwamy sie
-    // number >>= 1;
-
-    // while(number != 0) {
-    //     // sprawdzamy jaki jest następny bit
-    //     // jesli jeden, to robimy shl i inc
-    //     if (number & 1)
-    //         code.push_back("SHL");
-    //         code.push_back("INC");
-
-    //     // jesli jest zero, to robimy shl
-    // }
-
-    
     return code;
 }

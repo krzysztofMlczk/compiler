@@ -27,13 +27,13 @@ vector<string> CodeGenerator::generateCode(vector<Command*>* cmds) {
     vector<string> code;
     vector<string> outcome;
     vector<Command*>::iterator it = cmds->begin();
-    std::cout << "przed" << std::flush;
+    
     for (; it != cmds->end(); ++it) {
         outcome = (*it)->getCode(&symbolTable); // get output from getCode() method
         // append outcome to code vector
         code.insert(code.end(), outcome.begin(), outcome.end());
     }
-    std::cout << "po" << std::flush;
+
     code.push_back("HALT");
 
     return code;

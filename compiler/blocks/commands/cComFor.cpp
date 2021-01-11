@@ -16,6 +16,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     symbolTable->addSymbol(iterator);
 
     IdentifierSingle iter_ident(this->iter_name);
+    symbolTable->initialize(iter_ident.pid); // we have to initialize iterator
     // set register where address of iterator will appear
     // this ident doesn't need clobbers because it is single
     iter_ident.outcome_reg = "a";

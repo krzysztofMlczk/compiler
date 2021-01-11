@@ -7,12 +7,11 @@ vector<string> Command::getClobbers(vector<string>* occupied, ull amount) {
     vector<string> outcome;
     string registers[] = {"a", "b", "c", "d", "e", "f"};
     ull counter = 0;
-    cout << amount + 10 << endl;
+    
     int i = 0;
     while (counter != amount && i < 6) {
-        cout << "Asigning clobbers" << endl;
+
         if (find(occupied->begin(), occupied->end(), registers[i]) == occupied->end()) {
-            cout << registers[i] << endl;
             outcome.push_back(registers[i]);
             occupied->push_back(registers[i]);
             counter++;

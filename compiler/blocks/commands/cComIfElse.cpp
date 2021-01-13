@@ -18,17 +18,17 @@ vector<string> ComIfElse::getCode(SymbolTable* symbolTable, RegManager* regManag
     // free a
     regManager->free("a");
 
-    int jump = this->count_instructions(this->cmds_when_false, symbolTable) + 1 + 1;
-    int end = this->count_instructions(this->cmds_when_true, symbolTable) + 1;
+    int jump = this->count_instructions(this->cmds_when_false, symbolTable, regManager) + 1 + 1;
+    int end = this->count_instructions(this->cmds_when_true, symbolTable, regManager) + 1;
 
     code.push_back("JZERO a" + to_string(jump)); // jump to true block of commands
 
     // append cmds_when_false to code
-    this->concat(&code, this->cmds_when_false, symbolTable);
+    this->concat(&code, this->cmds_when_false, symbolTable, regManager);
     code.push_back("JUMP " + to_string(end));
 
     // append cmds_when_true to code
-    this->concat(&code, this->cmds_when_true, symbolTable);
+    this->concat(&code, this->cmds_when_true, symbolTable, regManager);
 
     return code;
 }

@@ -12,7 +12,7 @@ class IdentifierArrNum: public Identifier {
         // Arr[number] Identifier constructor
         IdentifierArrNum(string pid_ext, ull index);
 
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

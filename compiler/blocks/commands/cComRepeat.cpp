@@ -18,10 +18,10 @@ vector<string> ComRepeat::getCode(SymbolTable* symbolTable, RegManager* regManag
     regManager->free("a");
 
     int cond_code_len = cond_code.size();
-    int cmds_len = this->count_instructions(this->commands, symbolTable);
+    int cmds_len = this->count_instructions(this->commands, symbolTable, regManager);
 
     // append commands to code
-    this->concat(&code, this->commands, symbolTable);
+    this->concat(&code, this->commands, symbolTable, regManager);
 
     // append condition code
     code.insert(code.end(), cond_code.begin(), cond_code.end());

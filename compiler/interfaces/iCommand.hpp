@@ -9,8 +9,8 @@
 */
 class Command: public CodeBlock {
     public:
-        int count_instructions(vector<Command*>* cmds, SymbolTable* symbolTable);
-        void concat(vector<string>* code, vector<Command*>* cmds, SymbolTable* symbolTable);
+        int count_instructions(vector<Command*>* cmds, SymbolTable* symbolTable, RegManager* regManager);
+        void concat(vector<string>* code, vector<Command*>* cmds, SymbolTable* symbolTable, RegManager* regManager);
         vector<string> getClobbers(vector<string>* occupied, ull amount);
     protected:
     private:

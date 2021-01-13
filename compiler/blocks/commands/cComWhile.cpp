@@ -19,13 +19,13 @@ vector<string> ComWhile::getCode(SymbolTable* symbolTable, RegManager* regManage
 
     // before each loop iteration condition has to be checked
     int cond_check_len = code.size();
-    int commands_len = this->count_instructions(this->commands, symbolTable);
+    int commands_len = this->count_instructions(this->commands, symbolTable, regManager);
 
     // condition checking
     code.push_back("JZERO a 2"); // go to commands
     code.push_back("JUMP " + to_string(commands_len + 2)); // go to end
     // append commands to code
-    this->concat(&code, this->commands, symbolTable);
+    this->concat(&code, this->commands, symbolTable, regManager);
     
     // jump to begining of condition checking
     code.push_back("JUMP -" + to_string(cond_check_len + 2 + commands_len));

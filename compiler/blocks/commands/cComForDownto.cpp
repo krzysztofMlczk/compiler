@@ -49,7 +49,7 @@ vector<string> ComForDownto::getCode(SymbolTable* symbolTable, RegManager* regMa
     int get_iter_ending_val_len = get_iter_ending_val.size();
     int get_iter_value_len = get_iter_value.size();
     int get_iter_address_len = get_iter_address.size();
-    int commands_len = this->count_instructions(this->commands, symbolTable);
+    int commands_len = this->count_instructions(this->commands, symbolTable, regManager);
     int start = 1 + 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1 + get_iter_ending_val_len;
     int end = commands_len + get_iter_address_len + get_iter_value_len + 1 + 1 + 1 + 1 + 1;
 
@@ -79,7 +79,7 @@ vector<string> ComForDownto::getCode(SymbolTable* symbolTable, RegManager* regMa
     code.push_back("JUMP " + to_string(end));
 
     // commands inside loop
-    this->concat(&code, this->commands, symbolTable);
+    this->concat(&code, this->commands, symbolTable, regManager);
 
     // end of each loop
     // put iter addres in reg a

@@ -23,7 +23,7 @@ vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable, RegManager
 
     Constant const_start(start);
     const_start.outcome_reg = this->outcome_reg;
-    vector<string> code1 = const_start.getCode(symbolTable);
+    vector<string> code1 = const_start.getCode(symbolTable, regManager);
 
     // append code1 to code
     code.insert(code.end(), code1.begin(), code1.end());
@@ -33,7 +33,7 @@ vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable, RegManager
 
     Constant const_arrOffset(offset);
     const_arrOffset.outcome_reg = this->outcome_reg;
-    vector<string> code2 = const_arrOffset.getCode(symbolTable);
+    vector<string> code2 = const_arrOffset.getCode(symbolTable, regManager);
 
     // append code2 to code
     code.insert(code.end(), code2.begin(), code2.end());

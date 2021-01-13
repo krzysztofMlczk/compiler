@@ -45,6 +45,7 @@ compiler: parser.tab.h parser.tab.c lex.yy.c
 	./code_generator/cCodeGenerator.cpp \
 	./io_handler/cIoHandler.cpp \
 	./exceptions/cException.hpp \
+	./register_manager/cRegManager.cpp \
 	-o kompilator
 
 clean:

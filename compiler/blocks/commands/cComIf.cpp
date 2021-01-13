@@ -17,12 +17,12 @@ vector<string> ComIf::getCode(SymbolTable* symbolTable, RegManager* regManager) 
     // free condition register
     regManager->free("a");
 
-    int jump = this->count_instructions(this->commands, symbolTable) + 1;
+    int jump = this->count_instructions(this->commands, symbolTable, regManager) + 1;
 
     code.push_back("JZERO a 2");
     code.push_back("JUMP " + to_string(jump));
     // append cmds to perform when condition output is true
-    this->concat(&code, this->commands, symbolTable);
+    this->concat(&code, this->commands, symbolTable, regManager);
 
     return code;
 }

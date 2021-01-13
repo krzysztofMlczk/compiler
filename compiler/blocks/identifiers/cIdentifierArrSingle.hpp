@@ -13,7 +13,7 @@ class IdentifierArrSingle: public Identifier {
         // Arr[pid] identifier constructor
         IdentifierArrSingle(string pid_ext, string pid_int);
 
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

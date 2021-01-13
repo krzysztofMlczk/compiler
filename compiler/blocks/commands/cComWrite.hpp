@@ -18,7 +18,7 @@ class ComWrite: public Command {
         Constant* val_const;
 
         ComWrite(Value* val);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

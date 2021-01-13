@@ -5,15 +5,17 @@ ComWhile::ComWhile(Condition* cond, vector<Command*>* cmds) {
     this-> commands = cmds;
 }
 
-vector<string> ComWhile::getCode(SymbolTable* symbolTable) {
+vector<string> ComWhile::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
-    vector<string> occupied_registers{"a"};
 
     // assign out_reg for condition
     this->condition->outcome_reg = "a";
-    // every condition requires clobbers, then assign them
-    this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
-    code = this->condition->getCode(symbolTable);
+    // make a occupied
+    regManager->occupy("a");
+    code = this->condition->getCode(symbolTable, regManager);
+
+    // free a
+    regManager->free("a");
 
     // before each loop iteration condition has to be checked
     int cond_check_len = code.size();

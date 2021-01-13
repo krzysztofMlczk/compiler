@@ -16,7 +16,7 @@ class ComForDownto: public Command {
         string iter_name;
         vector<Command*>* commands;
         ComForDownto(string pid, Value* from, Value* downto, vector<Command*>* cmds);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

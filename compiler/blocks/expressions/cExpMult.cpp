@@ -4,9 +4,12 @@ ExpMult::ExpMult(Value* val1, Value* val2):Expression(val1, val2) {
     this->clobber_counter = 2;
 }
 
-vector<string> ExpMult::getCode(SymbolTable* symbolTable) {
+vector<string> ExpMult::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
     
+    // this expression needs additional register
+    this->clobbers = regManager->getClobbers(this->clobber_counter);
+
     // set outcome reg for val1
     this->val1->outcome_reg = this->clobbers.at(0);
 
@@ -14,10 +17,14 @@ vector<string> ExpMult::getCode(SymbolTable* symbolTable) {
     this->val2->outcome_reg = this->clobbers.at(1);
 
     // put val1 and val2 in their registers
-    code = this->val1->getCode(symbolTable);
-    vector<string> code1 = this->val2->getCode(symbolTable);
+    // make clobber(0) occupied
+    regManager->occupy(this->clobbers.at(0));
+    code = this->val1->getCode(symbolTable, regManager);
+    // make clobber(1) occupied
+    regManager->occupy(this->clobbers.at(1));
+    vector<string> code1 = this->val2->getCode(symbolTable, regManager);
     code.insert(code.end(), code1.begin(), code1.end());
-
+    
     // reset out reg
     code.push_back("RESET " + this->outcome_reg);
 
@@ -35,6 +42,10 @@ vector<string> ExpMult::getCode(SymbolTable* symbolTable) {
     code.push_back("SHR " + this->clobbers.at(1));
     // jump to start to check loop condition
     code.push_back("JUMP -" + to_string(6));
+
+    // free registers
+    regManager->free(this->clobbers.at(0));
+    regManager->free(this->clobbers.at(1));
 
     return code;
 }

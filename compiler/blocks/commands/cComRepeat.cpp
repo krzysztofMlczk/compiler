@@ -5,16 +5,17 @@ ComRepeat::ComRepeat(vector<Command*>* cmds, Condition* cond) {
     this->condition = cond;
 }
 
-vector<string> ComRepeat::getCode(SymbolTable* symbolTable) {
+vector<string> ComRepeat::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
-    vector<string> occupied_registers{"a"};
 
     // assign out_reg for condition
     this->condition->outcome_reg = "a";
-    
-    // every condition requires clobbers, then assign them
-    this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
-    vector<string> cond_code = this->condition->getCode(symbolTable);
+    // make a occupied
+    regManager->occupy("a");
+    vector<string> cond_code = this->condition->getCode(symbolTable, regManager);
+
+    // free a
+    regManager->free("a");
 
     int cond_code_len = cond_code.size();
     int cmds_len = this->count_instructions(this->commands, symbolTable);

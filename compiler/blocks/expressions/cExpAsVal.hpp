@@ -8,7 +8,7 @@
 class ExpAsVal: public Expression {
     public:
         ExpAsVal(Value* v1);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

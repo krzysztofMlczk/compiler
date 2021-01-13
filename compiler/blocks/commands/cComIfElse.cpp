@@ -6,22 +6,26 @@ ComIfElse::ComIfElse(Condition* cond, vector<Command*>* cmds1, vector<Command*>*
     this->cmds_when_false = cmds2;
 }
 
-vector<string> ComIfElse::getCode(SymbolTable* symbolTable) {
+vector<string> ComIfElse::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
-    vector<string> occupied_registers{"a"};
 
     // assign out_reg for condition
     this->condition->outcome_reg = "a";
-    // every condition requires clobbers, then assign them
-    this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
-    code = this->condition->getCode(symbolTable);
+    // make a occupied
+    regManager->occupy("a");
+    code = this->condition->getCode(symbolTable, regManager);
 
-    int jump = this->count_instructions(this->cmds_when_false, symbolTable) + 1;
+    // free a
+    regManager->free("a");
 
-    code.push_back("JZERO " + to_string(jump)); // jump to true block of commands
+    int jump = this->count_instructions(this->cmds_when_false, symbolTable) + 1 + 1;
+    int end = this->count_instructions(this->cmds_when_true, symbolTable) + 1;
+
+    code.push_back("JZERO a" + to_string(jump)); // jump to true block of commands
 
     // append cmds_when_false to code
     this->concat(&code, this->cmds_when_false, symbolTable);
+    code.push_back("JUMP " + to_string(end));
 
     // append cmds_when_true to code
     this->concat(&code, this->cmds_when_true, symbolTable);

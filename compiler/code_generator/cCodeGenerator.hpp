@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "../symbol_table/cSymbolTable.hpp"
+#include "../register_manager/cRegManager.hpp"
 #include "../interfaces/iCommand.hpp"
 #include <iostream>
 
@@ -17,6 +18,7 @@ typedef unsigned long long ull;
 class CodeGenerator {
     public:
         SymbolTable symbolTable;
+        RegManager regManager;
         CodeGenerator(); // constructor
 
         //add Array variable to symbolTable

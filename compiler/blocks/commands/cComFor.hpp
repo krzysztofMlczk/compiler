@@ -16,7 +16,7 @@ class ComFor: public Command {
         vector<Command*>* commands;
         string iter_name;
         ComFor(string pid, Value* from, Value* to, vector<Command*>* cmds);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

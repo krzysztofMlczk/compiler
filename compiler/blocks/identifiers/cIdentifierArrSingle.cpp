@@ -6,13 +6,16 @@ IdentifierArrSingle::IdentifierArrSingle(string pid_ext, string pid_int):Identif
     this->clobber_counter = 1;
 }
 
-vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable) {
+vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
+
+    // this type of identifier needs additional clobber, so get it from register manager
+    this->clobbers = regManager->getClobbers(this->clobber_counter);
 
     IdentifierSingle id(this->pid_int);
     VariableValue varVal(&id);
     varVal.outcome_reg = this->clobbers.at(0);
-    code = varVal.getCode(symbolTable);
+    code = varVal.getCode(symbolTable, regManager);
 
     Symbol* sym = symbolTable->getArrVar(this->pid);
     ull offset = sym->offset;

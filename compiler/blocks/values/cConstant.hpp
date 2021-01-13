@@ -12,7 +12,7 @@ class Constant: public Value {
         ull value;
         Constant(ull num);
 
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 
 };
 

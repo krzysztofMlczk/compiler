@@ -29,7 +29,7 @@ vector<string> CodeGenerator::generateCode(vector<Command*>* cmds) {
     vector<Command*>::iterator it = cmds->begin();
     
     for (; it != cmds->end(); ++it) {
-        outcome = (*it)->getCode(&symbolTable); // get output from getCode() method
+        outcome = (*it)->getCode(&symbolTable, &regManager); // get output from getCode() method
         // append outcome to code vector
         code.insert(code.end(), outcome.begin(), outcome.end());
     }

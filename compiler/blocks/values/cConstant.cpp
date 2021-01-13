@@ -5,7 +5,7 @@ Constant::Constant(ull number) {
     this->is_variable = false;
 }
 
-vector<string> Constant::getCode(SymbolTable* symbolTable) {
+vector<string> Constant::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
 
     code.push_back("RESET " + this->outcome_reg);

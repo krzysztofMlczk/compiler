@@ -8,7 +8,7 @@ class VariableValue: public Value {
         Identifier* ident;
         VariableValue(Identifier* ident);
 
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

@@ -5,15 +5,17 @@ ComIf::ComIf(Condition* cond, vector<Command*>* cmds) {
     this->commands = cmds;
 }
 
-vector<string> ComIf::getCode(SymbolTable* symbolTable) {
+vector<string> ComIf::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
-    vector<string> occupied_registers{"a"};
 
     // assign out_reg for condition
     this->condition->outcome_reg = "a";
-    // every condition requires clobbers, then assign them
-    this->condition->clobbers = this->getClobbers(&occupied_registers, this->condition->clobber_counter);
-    code = this->condition->getCode(symbolTable);
+    // make a occupied
+    regManager->occupy("a");
+    code = this->condition->getCode(symbolTable, regManager);
+
+    // free condition register
+    regManager->free("a");
 
     int jump = this->count_instructions(this->commands, symbolTable) + 1;
 

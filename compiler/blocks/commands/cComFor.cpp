@@ -7,7 +7,7 @@ ComFor::ComFor(string pid, Value* from, Value* to, vector<Command*>* cmds) {
     this->commands = cmds;
 }
 
-vector<string> ComFor::getCode(SymbolTable* symbolTable) {
+vector<string> ComFor::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
 
     // create symbol for iterator
@@ -21,23 +21,30 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable) {
     // this ident doesn't need clobbers because it is single
     iter_ident.outcome_reg = "a";
     // this code puts addres of iterator in register a
-    vector<string> get_iter_address = iter_ident.getCode(symbolTable);
+    vector<string> get_iter_address = iter_ident.getCode(symbolTable, regManager);
 
     // create VariableValue object for iterator, so we can easily get current iterator value in specific register
     VariableValue iter_value(&iter_ident);
     iter_value.outcome_reg = "b";
     // this code puts value of the iterator in register b
-    vector<string> get_iter_value = iter_value.getCode(symbolTable);
+    vector<string> get_iter_value = iter_value.getCode(symbolTable, regManager);
 
     // set register where iterator starting value will appear
     this->from->outcome_reg = "b";
+    // make register b occupied
+    regManager->occupy("b");
     // this code puts starting iterator value in register b
-    vector<string> get_iter_starting_val = this->from->getCode(symbolTable);
+    vector<string> get_iter_starting_val = this->from->getCode(symbolTable, regManager);
 
     // set register where ending iterator value will appear
     this->to->outcome_reg = "c";
-    vector<string> get_iter_ending_val = this->to->getCode(symbolTable);
+    // make register a occupied
+    regManager->occupy("c");
+    vector<string> get_iter_ending_val = this->to->getCode(symbolTable, regManager);
 
+    // free b and c
+    regManager->free("b");
+    regManager->free("c");
 
     int get_iter_ending_val_len = get_iter_ending_val.size();
     int get_iter_value_len = get_iter_value.size();

@@ -10,7 +10,7 @@ class ComRead: public Command {
     public:
         Identifier* ident;
         ComRead(Identifier* id);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

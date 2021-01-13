@@ -4,8 +4,11 @@ ExpDiv::ExpDiv(Value* val1, Value* val2):Expression(val1, val2) {
     this->clobber_counter = 4;
 }
 
-vector<string> ExpDiv::getCode(SymbolTable* symbolTable) {
+vector<string> ExpDiv::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
+
+    // this expression needs additional register
+    this->clobbers = regManager->getClobbers(this->clobber_counter);
 
     // set out reg for val1 (numerator)
     this->val1->outcome_reg = this->clobbers.at(1);
@@ -14,8 +17,12 @@ vector<string> ExpDiv::getCode(SymbolTable* symbolTable) {
     this->val2->outcome_reg = this->clobbers.at(0);
 
     // put values in their registers
-    code = this->val1->getCode(symbolTable);
-    vector<string> code1 = this->val2->getCode(symbolTable);
+    // make clobbers(1) occupied
+    regManager->occupy(this->clobbers.at(1));
+    code = this->val1->getCode(symbolTable, regManager);
+    // make clobbers(0) occupied
+    regManager->occupy(this->clobbers.at(0));
+    vector<string> code1 = this->val2->getCode(symbolTable, regManager);
     code.insert(code.end(), code1.begin(), code1.end());
 
     // reset register where we will get result of division
@@ -67,6 +74,10 @@ vector<string> ExpDiv::getCode(SymbolTable* symbolTable) {
     code.push_back("DEC " + this->clobbers.at(2));
     // go to the begining of the loop
     code.push_back("JUMP -15");
+
+    // free clobber.at(0)
+    regManager->free(this->clobbers.at(0));
+    regManager->free(this->clobbers.at(1));
 
     return code;
 }

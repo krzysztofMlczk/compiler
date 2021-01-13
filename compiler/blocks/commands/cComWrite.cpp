@@ -10,32 +10,35 @@ ComWrite::ComWrite(Value* val) {
     }
 }
 
-vector<string> ComWrite::getCode(SymbolTable* symbolTable) {
+vector<string> ComWrite::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
-    vector<string> occupied_registers{"a"};
-
+    
     if (this->val_var) {
         // do the following if value to print is instance of VariableValue
 
         // assign out_reg for condition
         this->val_var->ident->outcome_reg = "a";
-        // if ident requires clobbers, then assign them
-        this->val_var->ident->clobbers = this->getClobbers(&occupied_registers, this->val_var->ident->clobber_counter);
-        code = this->val_var->ident->getCode(symbolTable);
+        // make a occupied
+        regManager->occupy("a");
+        code = this->val_var->ident->getCode(symbolTable, regManager);
+
+        // free a
+        regManager->free("a");
 
     } else if (this->val_const){
         // do the following if value to print is instance of Constant
+
         Symbol* new_symbol = new Symbol(to_string(val_const->value), symbolTable->mem_offset);
         // we have to declare new variable in symbol table
         symbolTable->addSymbol(new_symbol);
 
-        Identifier* ident = new IdentifierSingle(to_string(val_const->value));
-        Expression* exp = new ExpAsVal(this->val_const);
+        IdentifierSingle ident(to_string(val_const->value));
+        ExpAsVal exp(this->val_const);
 
         // after doig this operation in register "a" there will be address
         // to memory cell where val_const.value is placed so we can simply use PUT
-        ComAssign* com_assign = new ComAssign(ident, exp);
-        code = com_assign->getCode(symbolTable);
+        ComAssign com_assign(&ident, &exp);
+        code = com_assign.getCode(symbolTable, regManager);
 
         // remove new symbol from symbol table (we won't need it anymore)
         symbolTable->rmSymbol(new_symbol);

@@ -4,8 +4,11 @@ ExpMod::ExpMod(Value* val1, Value* val2):Expression(val1, val2) {
     this->clobber_counter = 5;
 }
 
-vector<string> ExpMod::getCode(SymbolTable* symbolTable) {
+vector<string> ExpMod::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
+
+    // this expression needs additional register
+    this->clobbers = regManager->getClobbers(this->clobber_counter);
 
     // set out reg for val1 (numerator)
     this->val1->outcome_reg = this->clobbers.at(1);
@@ -14,8 +17,12 @@ vector<string> ExpMod::getCode(SymbolTable* symbolTable) {
     this->val2->outcome_reg = this->clobbers.at(0);
 
     // put values in their registers
-    code = this->val1->getCode(symbolTable);
-    vector<string> code1 = this->val2->getCode(symbolTable);
+    // make clobber(1) occupied
+    regManager->occupy(this->clobbers.at(1));
+    code = this->val1->getCode(symbolTable, regManager);
+    // make clobber(0) occupied
+    regManager->occupy(this->clobbers.at(0));
+    vector<string> code1 = this->val2->getCode(symbolTable, regManager);
     code.insert(code.end(), code1.begin(), code1.end());
 
     // reset register where we will get result of division
@@ -80,6 +87,10 @@ vector<string> ExpMod::getCode(SymbolTable* symbolTable) {
     // put remainder in out_reg
     code.push_back("RESET " + this->outcome_reg);
     code.push_back("ADD " + this->outcome_reg + " " + this->clobbers.at(1));
+
+    // free registers
+    regManager->free(this->clobbers.at(1));
+    regManager->free(this->clobbers.at(0));
 
     return code;
 }

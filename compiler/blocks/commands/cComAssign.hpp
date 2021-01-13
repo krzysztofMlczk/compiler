@@ -12,7 +12,7 @@ class ComAssign: public Command {
         Identifier* ident;
         Expression* expression;
         ComAssign(Identifier* id, Expression* exp);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

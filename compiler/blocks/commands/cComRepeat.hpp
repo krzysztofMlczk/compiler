@@ -11,7 +11,7 @@ class ComRepeat: public Command {
         vector<Command*>* commands;
         Condition* condition;
         ComRepeat(vector<Command*>* cmds, Condition* cond);
-        virtual vector<string> getCode(SymbolTable* symbolTable);
+        virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);
 };
 
 #endif

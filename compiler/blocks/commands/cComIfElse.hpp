@@ -12,7 +12,7 @@ class ComIfElse: public Command {
         vector<Command*>* cmds_when_true;
         vector<Command*>* cmds_when_false;
         ComIfElse(Condition* cond, vector<Command*>* cmds1, vector<Command*>* cmds2);
-        virtual vector<string> getCode(SymbolTable* SymbolTable);
+        virtual vector<string> getCode(SymbolTable* SymbolTable, RegManager* regManager);
 };
 
 #endif

@@ -13,6 +13,11 @@ vector<string> ExpMod::getCode(SymbolTable* symbolTable) {
     // set out reg for val2 (denominator)
     this->val2->outcome_reg = this->clobbers.at(0);
 
+    // put values in their registers
+    code = this->val1->getCode(symbolTable);
+    vector<string> code1 = this->val2->getCode(symbolTable);
+    code.insert(code.end(), code1.begin(), code1.end());
+
     // reset register where we will get result of division
     code.push_back("RESET " + this->outcome_reg);
     // copy to clobbers.at(2) val1
@@ -40,7 +45,7 @@ vector<string> ExpMod::getCode(SymbolTable* symbolTable) {
     code.push_back("JUMP -3");
 
     // for each bit in val1 bits
-    code.push_back("JZERO " + this->clobbers.at(2) + " ");
+    code.push_back("JZERO " + this->clobbers.at(2) + " 16");
     // shift left partial remainder
     code.push_back("SHL " + this->clobbers.at(1));
     // save shifted partial remainder in clobbers.at(3)
@@ -64,14 +69,17 @@ vector<string> ExpMod::getCode(SymbolTable* symbolTable) {
     code.push_back("INC " + this->outcome_reg);
     // decrement number of bits (move on the bits)
     code.push_back("DEC " + this->clobbers.at(2));
+    // go to the begining of the loop
+    code.push_back("JUMP -15");
 
     // put remainder shifted by n-bits in out_reg
-    code.push_back("RESET " + this->outcome_reg);
-    code.push_back("ADD " + this->clobbers.at(1));
     code.push_back("JZERO " + this->clobbers.at(4) + " 4");
-    code.push_back("SHR " + this->outcome_reg);
+    code.push_back("SHR " + this->clobbers.at(1));
     code.push_back("DEC " + this->clobbers.at(4));
     code.push_back("JUMP -3");
+    // put remainder in out_reg
+    code.push_back("RESET " + this->outcome_reg);
+    code.push_back("ADD " + this->outcome_reg + " " + this->clobbers.at(1));
 
     return code;
 }

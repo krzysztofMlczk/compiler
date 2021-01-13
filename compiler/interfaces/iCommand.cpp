@@ -18,7 +18,8 @@ vector<string> Command::getClobbers(vector<string>* occupied, ull amount) {
         }
         i++;
     }
-
+    if (counter != amount)
+        cout << "Not enough clobbers avaliable" << endl;
     return outcome;
 }
 

@@ -11,6 +11,9 @@ vector<string> Constant::getCode(SymbolTable* symbolTable, RegManager* regManage
     code.push_back("RESET " + this->outcome_reg);
     ull number = this->value;
 
+    if (number == 0)
+        return code;
+
     ull value_len_in_bits = floor(log2(this->value)) + 1;
 
     for (ull i = value_len_in_bits - 1; i > 0; i--) {

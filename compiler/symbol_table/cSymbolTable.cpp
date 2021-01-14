@@ -79,7 +79,6 @@ Symbol* SymbolTable::getArrVar(string pid_ext) {
 
     for (; it != table.end(); ++it) {
         if ((*it)->name == pid_ext) {
-            cout << pid_ext << endl;
             if (!(*it)->is_array) {
                 throw Exception("Invalid reference to single variable: " + pid_ext);
             }

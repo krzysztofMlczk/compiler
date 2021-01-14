@@ -11,10 +11,10 @@ vector<string> Constant::getCode(SymbolTable* symbolTable, RegManager* regManage
     code.push_back("RESET " + this->outcome_reg);
     ull number = this->value;
 
-    unsigned short value_len_in_bits = floor(log2(this->value)) + 1;
+    ull value_len_in_bits = floor(log2(this->value)) + 1;
 
-    for (int i = value_len_in_bits - 1; i > 0; i--) {
-        if (number & 1 << i) {
+    for (ull i = value_len_in_bits - 1; i > 0; i--) {
+        if (number & (ull)1 << i) {
             code.push_back("INC " + this->outcome_reg);
         }
         code.push_back("SHL " + this->outcome_reg);

@@ -27,6 +27,9 @@ vector<string> ExpMod::getCode(SymbolTable* symbolTable, RegManager* regManager)
 
     // reset register where we will get result of division
     code.push_back("RESET " + this->outcome_reg);
+    // if value2 == 0, then jump to end
+    code.push_back("JZERO " + this->clobbers.at(0) + " 36");
+
     // copy to clobbers.at(2) val1
     code.push_back("RESET " + this->clobbers.at(2));
     code.push_back("ADD " + this->clobbers.at(2) + " " + this->clobbers.at(1));

@@ -25,8 +25,12 @@ vector<string> ExpDiv::getCode(SymbolTable* symbolTable, RegManager* regManager)
     vector<string> code1 = this->val2->getCode(symbolTable, regManager);
     code.insert(code.end(), code1.begin(), code1.end());
 
+
     // reset register where we will get result of division
     code.push_back("RESET " + this->outcome_reg);
+    // if value2 == 0, then jump to end
+    code.push_back("JZERO " + this->clobbers.at(0) + " 28");
+
     // copy to clobbers.at(2) val1
     code.push_back("RESET " + this->clobbers.at(2));
     code.push_back("ADD " + this->clobbers.at(2) + " " + this->clobbers.at(1));

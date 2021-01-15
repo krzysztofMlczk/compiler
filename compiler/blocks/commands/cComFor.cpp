@@ -31,6 +31,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable, RegManager* regManager)
 
     // create symbol for iterator (holds current value of iterator)
     Symbol* iterator = new Symbol(this->iter_name, symbolTable->mem_offset);
+    iterator->is_iterator = true;
     // add iterator to symbol table
     symbolTable->addSymbol(iterator);
 

@@ -10,6 +10,25 @@ ComFor::ComFor(string pid, Value* from, Value* to, vector<Command*>* cmds) {
 vector<string> ComFor::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
 
+    // set register where "from" value will appear
+    this->from->outcome_reg = "b";
+    // make register b occupied
+    regManager->occupy("b");
+    // this code puts starting iterator value in register b
+    vector<string> get_from_val = this->from->getCode(symbolTable, regManager);
+
+    // set register where "to" value will appear
+    this->to->outcome_reg = "c";
+    // make register a occupied
+    regManager->occupy("c");
+    vector<string> get_to_val = this->to->getCode(symbolTable, regManager);
+
+    // free b and c
+    regManager->free("b");
+    regManager->free("c");
+
+    // *******************************************************************************************************************************
+
     // create symbol for iterator (holds current value of iterator)
     Symbol* iterator = new Symbol(this->iter_name, symbolTable->mem_offset);
     // add iterator to symbol table
@@ -51,23 +70,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable, RegManager* regManager)
 
     // ********************************************************************************************************************************
 
-    // set register where "from" value will appear
-    this->from->outcome_reg = "b";
-    // make register b occupied
-    regManager->occupy("b");
-    // this code puts starting iterator value in register b
-    vector<string> get_from_val = this->from->getCode(symbolTable, regManager);
-
-    // set register where "to" value will appear
-    this->to->outcome_reg = "c";
-    // make register a occupied
-    regManager->occupy("c");
-    vector<string> get_to_val = this->to->getCode(symbolTable, regManager);
-
-    // free b and c
-    regManager->free("b");
-    regManager->free("c");
-
+    
 
     // lengths calculations
     int commands_len = this->count_instructions(this->commands, symbolTable, regManager);

@@ -10,6 +10,26 @@ ComForDownto::ComForDownto(string pid, Value* from, Value* downto, vector<Comman
 vector<string> ComForDownto::getCode(SymbolTable* symbolTable, RegManager* regManager) {
     vector<string> code;
 
+    // set register where "from" value will appear
+    this->from->outcome_reg = "b";
+    // make register b occupied
+    regManager->occupy("b");
+    // this code puts starting iterator value in register b
+    vector<string> get_from_val = this->from->getCode(symbolTable, regManager);
+
+    // set register where "to" value will appear
+    this->downto->outcome_reg = "c";
+    // make register a occupied
+    regManager->occupy("c");
+    vector<string> get_to_val = this->downto->getCode(symbolTable, regManager);
+
+    // free b and c
+    regManager->free("b");
+    regManager->free("c");
+
+
+    // *******************************************************************************************************************************
+
     // create symbol for iterator (holds current value of iterator)
     Symbol* iterator = new Symbol(this->iter_name, symbolTable->mem_offset);
     // add iterator to symbol table
@@ -51,23 +71,6 @@ vector<string> ComForDownto::getCode(SymbolTable* symbolTable, RegManager* regMa
 
     // ********************************************************************************************************************************
 
-    // set register where "from" value will appear
-    this->from->outcome_reg = "b";
-    // make register b occupied
-    regManager->occupy("b");
-    // this code puts starting iterator value in register b
-    vector<string> get_from_val = this->from->getCode(symbolTable, regManager);
-
-    // set register where "to" value will appear
-    this->downto->outcome_reg = "c";
-    // make register a occupied
-    regManager->occupy("c");
-    vector<string> get_to_val = this->downto->getCode(symbolTable, regManager);
-
-    // free b and c
-    regManager->free("b");
-    regManager->free("c");
-
 
     // lengths calculations
     int commands_len = this->count_instructions(this->commands, symbolTable, regManager);
@@ -78,10 +81,6 @@ vector<string> ComForDownto::getCode(SymbolTable* symbolTable, RegManager* regMa
     int start = get_end_iter_value_len + 1 + 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1;
     int jmp_if_zero = 1 + 1 + get_end_iter_value_len + 1 + 1;
 
-    cout << "Commands len: " << commands_len << endl;
-    cout << get_iter_address_len << endl;
-    cout << get_iter_value_len << endl;
-    cout << get_end_iter_value_len << endl;
 
     // code structure
 

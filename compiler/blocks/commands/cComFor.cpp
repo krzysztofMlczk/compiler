@@ -72,7 +72,7 @@ vector<string> ComFor::getCode(SymbolTable* symbolTable, RegManager* regManager)
     // lengths calculations
     int commands_len = this->count_instructions(this->commands, symbolTable, regManager);
     int get_iter_address_len = get_iter_address.size();
-    int get_iter_value_len = get_end_iter_value.size();
+    int get_iter_value_len = get_iter_value.size();
     int get_end_iter_value_len = get_end_iter_value.size();
     int end = commands_len + get_iter_address_len + get_iter_value_len + 1 + 1 + get_end_iter_value_len + 1 + 1;
     int start = get_end_iter_value_len + 1 + 1 + get_iter_value_len + get_iter_address_len + commands_len + 1 + 1 + 1;

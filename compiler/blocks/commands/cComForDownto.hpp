@@ -5,6 +5,7 @@
 #include "../../interfaces/iIdentifier.hpp"
 #include "../../interfaces/iValue.hpp"
 #include "../values/cVariableValue.hpp"
+#include <iostream>
 
 /*
 *   For Downto command CLASS

@@ -138,7 +138,7 @@ commands:
                                                                 $1->push_back($2);
                                                                 $$ = $1;
                                                               }
-| command                                                     { 
+| command                                                     {
                                                                 vector<Command*>* v = new vector<Command*>;
                                                                 v->push_back($1);
                                                                 $$ = v;

@@ -1,6 +1,6 @@
 #include "cIdentifierArrSingle.hpp"
 
-IdentifierArrSingle::IdentifierArrSingle(string pid_ext, string pid_int):Identifier(pid_ext) {
+IdentifierArrSingle::IdentifierArrSingle(string pid_ext, string pid_int, int line):Identifier(pid_ext, line) {
     this->pid_int = pid_int;
     this->check_init = false;
     this->clobber_counter = 1;
@@ -12,12 +12,12 @@ vector<string> IdentifierArrSingle::getCode(SymbolTable* symbolTable, RegManager
     // this type of identifier needs additional clobber, so get it from register manager
     this->clobbers = regManager->getClobbers(this->clobber_counter);
 
-    IdentifierSingle id(this->pid_int);
+    IdentifierSingle id(this->pid_int, this->line);
     VariableValue varVal(&id);
     varVal.outcome_reg = this->clobbers.at(0);
     code = varVal.getCode(symbolTable, regManager);
 
-    Symbol* sym = symbolTable->getArrVar(this->pid);
+    Symbol* sym = symbolTable->getArrVar(this->pid, this->line);
     ull offset = sym->offset;
     ull start = sym->array_start;
 

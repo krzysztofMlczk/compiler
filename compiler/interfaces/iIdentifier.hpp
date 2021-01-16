@@ -9,6 +9,8 @@
 class Identifier: public CodeBlock {
     public:
         string pid;
+        int line;
+        Identifier(string pid, int line);
         Identifier(string pid);
         bool check_init; //tells if we should check if var is initialized
         string outcome_reg;

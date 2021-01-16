@@ -15,15 +15,16 @@ class SymbolTable {
     public:
         vector<Symbol*> table;
         ull mem_offset; // keeps track of where new declarations should be placed
+        int line;
         SymbolTable();
         void addSymbol(Symbol* sym);
         bool checkIfAlreadyDeclared(string pid);
         void initialize(string pid);
         void rmSymbol(Symbol* sym);
         // returns single var symbol
-        Symbol* getSingleVar(string pid, bool check_init);
+        Symbol* getSingleVar(string pid, bool check_init, int line);
         // returns arr var symbol
-        Symbol* getArrVar(string pid_ext);
+        Symbol* getArrVar(string pid_ext, int line);
 };
 
 #endif

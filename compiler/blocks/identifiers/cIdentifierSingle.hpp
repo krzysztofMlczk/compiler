@@ -10,6 +10,7 @@
 class IdentifierSingle: public Identifier {
     public:
         // Single Identifier constructor
+        IdentifierSingle(string pid, int line);
         IdentifierSingle(string pid);
 
         virtual vector<string> getCode(SymbolTable* symbolTable, RegManager* regManager);

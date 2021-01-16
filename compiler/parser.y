@@ -75,15 +75,62 @@
 %% /* The grammar follows. */
 
 program:
-   DECLARE declarations BEGIN_T commands END                  { code = cg.generateCode($4); }
- | BEGIN_T commands END                                       { code = cg.generateCode($2); }                                                            
+   DECLARE declarations BEGIN_T commands END                  {
+                                                                try {
+                                                                  code = cg.generateCode($4);
+                                                                } catch (exception& e) {
+                                                                  cerr << e.what() << endl;
+                                                                  exit (EXIT_FAILURE);
+                                                                }
+                                                              }
+ | BEGIN_T commands END                                       {
+                                                                try {
+                                                                  code = cg.generateCode($2);
+                                                                } catch (exception& e) {
+                                                                  cerr << e.what() << endl;
+                                                                  exit (EXIT_FAILURE);
+                                                                }
+                                                              }
  ;
 
 declarations:
-  declarations ',' PIDENTIFIER                                { cg.addSymbol($3);           }
-| declarations ',' PIDENTIFIER '(' NUMBER ':' NUMBER ')'      { cg.addSymbol($3, $5, $7);   }
-| PIDENTIFIER                                                 { cg.addSymbol($1);           }
-| PIDENTIFIER '(' NUMBER ':' NUMBER ')'                       { cg.addSymbol($1, $3, $5);   }
+  declarations ',' PIDENTIFIER                                {
+                                                                cg.symbolTable.line = yylineno;
+                                                                try {
+                                                                  cg.addSymbol($3);
+                                                                } catch (exception& e) {
+                                                                  cerr << e.what() << endl;
+                                                                  exit (EXIT_FAILURE);
+                                                                }
+                                                              }
+| declarations ',' PIDENTIFIER '(' NUMBER ':' NUMBER ')'      {
+                                                                cg.symbolTable.line = yylineno;
+                                                                try {
+                                                                  cg.addSymbol($3, $5, $7);
+                                                                } catch (exception& e) {
+                                                                  cerr << e.what() << endl;
+                                                                  exit (EXIT_FAILURE);
+                                                                }
+                                                              }
+| PIDENTIFIER                                                 {
+                                                                cg.symbolTable.line = yylineno;
+                                                                try {
+                                                                  cg.addSymbol($1);
+                                                                } catch (exception& e) {
+                                                                  cerr << e.what() << endl;
+                                                                  exit (EXIT_FAILURE);
+                                                                }
+
+                                                              }
+| PIDENTIFIER '(' NUMBER ':' NUMBER ')'                       {
+                                                                cg.symbolTable.line = yylineno;
+                                                                try {
+                                                                  cg.addSymbol($1, $3, $5);
+                                                                } catch (exception& e) {
+                                                                  cerr << e.what() << endl;
+                                                                  exit (EXIT_FAILURE);
+                                                                }
+                                                              }
 ;
 
 commands:
@@ -134,9 +181,9 @@ value:
 ;
 
 identifier:
-  PIDENTIFIER                       { $$ = new IdentifierSingle(std::string($1));                     }
-| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new IdentifierArrSingle(std::string($1), std::string($3)); }
-| PIDENTIFIER '(' NUMBER ')'        { $$ = new IdentifierArrNum(std::string($1), $3);                 }
+  PIDENTIFIER                       { $$ = new IdentifierSingle(std::string($1), yylineno);                     }
+| PIDENTIFIER '(' PIDENTIFIER ')'   { $$ = new IdentifierArrSingle(std::string($1), std::string($3), yylineno); }
+| PIDENTIFIER '(' NUMBER ')'        { $$ = new IdentifierArrNum(std::string($1), $3, yylineno);                 }
 ;
 
 %%
